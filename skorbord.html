@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<style>
+
+body{
+margin:0;
+background:transparent;
+font-family:Segoe UI,Arial;
+}
+
+.board{
+width:360px;
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px 14px;
+border-radius:14px;
+margin-bottom:6px;
+backdrop-filter:blur(10px);
+transition:all .4s ease;
+animation:fade .5s;
+}
+
+.gold{
+background:linear-gradient(90deg,#f5d77a,#e4b941);
+box-shadow:0 0 15px rgba(255,215,0,0.5);
+}
+
+.silver{
+background:rgba(255,255,255,0.35);
+}
+
+.flag{
+width:28px;
+margin-right:10px;
+border-radius:4px;
+}
+
+.country{
+display:flex;
+align-items:center;
+font-weight:600;
+font-size:15px;
+}
+
+.score{
+background:rgba(255,255,255,0.75);
+padding:4px 12px;
+border-radius:10px;
+font-weight:bold;
+font-size:14px;
+}
+
+.crown{
+font-size:16px;
+margin-right:6px;
+}
+
+.flash{
+animation:flash .6s;
+}
+
+@keyframes flash{
+0%{transform:scale(1)}
+50%{transform:scale(1.12)}
+100%{transform:scale(1)}
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="board" class="board"></div>
+
+<script>
+
+let countries=[
+
+{name:"Slovakia",score:0,flag:"https://flagcdn.com/w40/sk.png"},
+{name:"Czechia",score:0,flag:"https://flagcdn.com/w40/cz.png"},
+{name:"Poland",score:0,flag:"https://flagcdn.com/w40/pl.png"},
+{name:"Hungary",score:0,flag:"https://flagcdn.com/w40/hu.png"},
+{name:"Croatia",score:0,flag:"https://flagcdn.com/w40/hr.png"},
+{name:"Ukraine",score:0,flag:"https://flagcdn.com/w40/ua.png"},
+{name:"Russia",score:0,flag:"https://flagcdn.com/w40/ru.png"},
+{name:"Austria",score:0,flag:"https://flagcdn.com/w40/at.png"},
+{name:"Germany",score:0,flag:"https://flagcdn.com/w40/de.png"},
+{name:"Albania",score:0,flag:"https://flagcdn.com/w40/al.png"},
+{name:"Switzerland",score:0,flag:"https://flagcdn.com/w40/ch.png"}
+
+]
+
+function draw(){
+
+countries.sort((a,b)=>b.score-a.score)
+
+let html=""
+
+countries.forEach((c,i)=>{
+
+let style=i==0?"row gold":"row silver"
+
+let crown=i==0?"<span class='crown'>👑</span>":""
+
+html+=`
+<div class="${style}" id="${c.name}">
+<div class="country">
+${crown}
+<img class="flag" src="${c.flag}">
+${c.name}
+</div>
+<div class="score">${c.score}</div>
+</div>
+`
+
+})
+
+document.getElementById("board").innerHTML=html
+
+}
+
+draw()
+
+const socket=new WebSocket("ws://localhost:3000")
+
+socket.onmessage=function(event){
+
+let data=JSON.parse(event.data)
+
+let c=countries.find(x=>x.name===data.country)
+
+if(c){
+
+c.score+=data.points
+
+}
+
+draw()
+
+let el=document.getElementById(data.country)
+
+if(el){
+
+el.classList.add("flash")
+
+setTimeout(()=>{
+el.classList.remove("flash")
+},600)
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
