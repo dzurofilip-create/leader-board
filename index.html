@@ -1,166 +1,555 @@
 <!DOCTYPE html>
-<html>
+<html lang="sk">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNDERGROUND RP CASINO</title>
 
 <style>
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body{
-margin:0;
-background:transparent;
-font-family:Segoe UI,Arial;
+    font-family:Arial, sans-serif;
+    height:100vh;
+    overflow:hidden;
+
+    background:
+    linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.9)),
+    url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1920&auto=format&fit=crop');
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
-.board{
-width:360px;
+body::before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+
+    background:
+    radial-gradient(circle at center,
+    rgba(255,0,0,0.15),
+    transparent 60%);
+
+    animation:bgPulse 4s infinite alternate;
 }
 
-.row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:10px 14px;
-border-radius:14px;
-margin-bottom:6px;
-backdrop-filter:blur(10px);
-transition:all .4s ease;
-animation:fade .5s;
+@keyframes bgPulse{
+
+    from{
+        transform:scale(1);
+    }
+
+    to{
+        transform:scale(1.1);
+    }
+
 }
 
-.gold{
-background:linear-gradient(90deg,#f5d77a,#e4b941);
-box-shadow:0 0 15px rgba(255,215,0,0.5);
+.casino{
+    position:relative;
+
+    width:95%;
+    max-width:1050px;
+
+    background:
+    linear-gradient(to bottom,
+    rgba(25,0,0,0.95),
+    rgba(0,0,0,0.97));
+
+    border:4px solid red;
+    border-radius:30px;
+
+    padding:25px;
+
+    box-shadow:
+    0 0 30px red,
+    0 0 80px rgba(255,0,0,0.5);
+
+    overflow:hidden;
 }
 
-.silver{
-background:rgba(255,255,255,0.35);
+.casino::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+    repeating-linear-gradient(
+    45deg,
+    rgba(255,0,0,0.03),
+    rgba(255,0,0,0.03) 10px,
+    transparent 10px,
+    transparent 20px);
+
+    pointer-events:none;
 }
 
-.flag{
-width:28px;
-margin-right:10px;
-border-radius:4px;
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
 }
 
-.country{
-display:flex;
-align-items:center;
-font-weight:600;
-font-size:15px;
+.logo{
+    font-size:55px;
+    font-weight:bold;
+    letter-spacing:3px;
+    color:white;
+
+    text-shadow:
+    0 0 10px white,
+    0 0 20px red,
+    0 0 40px red;
 }
 
-.score{
-background:rgba(255,255,255,0.75);
-padding:4px 12px;
-border-radius:10px;
-font-weight:bold;
-font-size:14px;
+.logo span{
+    color:red;
 }
 
-.crown{
-font-size:16px;
-margin-right:6px;
+.small-logo{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    object-fit:cover;
+
+    border:4px solid red;
+
+    box-shadow:
+    0 0 20px red,
+    0 0 40px rgba(255,0,0,0.5);
 }
 
-.flash{
-animation:flash .6s;
+.subtitle{
+    text-align:center;
+    color:#aaa;
+    margin-bottom:25px;
+    font-size:18px;
+    letter-spacing:3px;
 }
 
-@keyframes flash{
-0%{transform:scale(1)}
-50%{transform:scale(1.12)}
-100%{transform:scale(1)}
+.machine{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin-bottom:30px;
 }
 
-@keyframes fade{
-from{opacity:0;transform:translateY(10px)}
-to{opacity:1}
+.slot{
+    width:220px;
+    height:220px;
+
+    background:
+    linear-gradient(to bottom,
+    #111,
+    #000);
+
+    border:4px solid red;
+    border-radius:25px;
+
+    overflow:hidden;
+    position:relative;
+
+    box-shadow:
+    inset 0 0 25px rgba(255,0,0,0.3),
+    0 0 25px red;
+}
+
+.reel{
+    position:absolute;
+    width:100%;
+}
+
+.item{
+    width:100%;
+    height:220px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+
+    color:white;
+    font-size:28px;
+    font-weight:bold;
+
+    text-shadow:0 0 15px red;
+}
+
+.item img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.center{
+    text-align:center;
+}
+
+button{
+    background:
+    linear-gradient(to bottom,
+    #ff2b2b,
+    #a00000);
+
+    border:none;
+    color:white;
+
+    padding:18px 50px;
+
+    font-size:28px;
+    border-radius:20px;
+
+    cursor:pointer;
+    font-weight:bold;
+
+    box-shadow:
+    0 0 25px red,
+    inset 0 0 15px rgba(255,255,255,0.3);
+
+    transition:0.2s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+.result{
+    margin-top:25px;
+    min-height:50px;
+
+    color:#ff4444;
+    font-size:28px;
+    font-weight:bold;
+
+    text-shadow:
+    0 0 15px red,
+    0 0 30px red;
+}
+
+.footer{
+    margin-top:25px;
+    text-align:center;
+    color:#777;
+    font-size:14px;
+    letter-spacing:2px;
+}
+
+.win{
+    animation:glow 0.5s infinite alternate;
+}
+
+@keyframes glow{
+
+    from{
+        box-shadow:
+        inset 0 0 20px rgba(255,0,0,0.3),
+        0 0 20px red;
+    }
+
+    to{
+        box-shadow:
+        inset 0 0 30px rgba(255,255,255,0.3),
+        0 0 50px white;
+    }
+
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div id="board" class="board"></div>
+<div class="casino">
+
+    <div class="topbar">
+
+        <div class="logo">
+            UNDERGROUND <span>RP</span>
+        </div>
+
+        <img class="small-logo"
+        src="https://p16-common-sign.tiktokcdn-eu.com/tos-no1a-avt-0068c001-no/5171e95d4c2b06cbb6dc4b43107805c9~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=10399&refresh_token=d6a7a5bb&x-expires=1778410800&x-signature=lP3pXEATGJwM1wiM96ON2obbl6A%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=no1a">
+
+    </div>
+
+    <div class="subtitle">
+        EMERGENCY HAMBURG CASINO
+    </div>
+
+    <div class="machine">
+
+        <div class="slot">
+            <div class="reel" id="reel1"></div>
+        </div>
+
+        <div class="slot">
+            <div class="reel" id="reel2"></div>
+        </div>
+
+        <div class="slot">
+            <div class="reel" id="reel3"></div>
+        </div>
+
+    </div>
+
+    <div class="center">
+        <button onclick="spin()">🔴 TOČIŤ</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <div class="footer">
+        ⚠️ VÝHRY NIE SÚ GARANTOVANÉ • LUCK SYSTEM ZAPNUTÝ • UNDERGROUND RP CASINO
+    </div>
+
+</div>
 
 <script>
 
-let countries=[
+const rewards = [
 
-{name:"Slovakia",score:0,flag:"https://flagcdn.com/w40/sk.png"},
-{name:"Czechia",score:0,flag:"https://flagcdn.com/w40/cz.png"},
-{name:"Poland",score:0,flag:"https://flagcdn.com/w40/pl.png"},
-{name:"Hungary",score:0,flag:"https://flagcdn.com/w40/hu.png"},
-{name:"Croatia",score:0,flag:"https://flagcdn.com/w40/hr.png"},
-{name:"Ukraine",score:0,flag:"https://flagcdn.com/w40/ua.png"},
-{name:"Russia",score:0,flag:"https://flagcdn.com/w40/ru.png"},
-{name:"Austria",score:0,flag:"https://flagcdn.com/w40/at.png"},
-{name:"Germany",score:0,flag:"https://flagcdn.com/w40/de.png"},
-{name:"Albania",score:0,flag:"https://flagcdn.com/w40/al.png"},
-{name:"Switzerland",score:0,flag:"https://flagcdn.com/w40/ch.png"}
+    {name:"💵 1K €", chance:25},
+    {name:"💵 2K €", chance:20},
+    {name:"💵 3K €", chance:15},
+    {name:"💵 4K €", chance:10},
+    {name:"💵 5K €", chance:5},
+    {name:"💵 6K €", chance:4},
+    {name:"💵 7K €", chance:3},
+    {name:"💰 8K €", chance:2},
+    {name:"💰 12.5K €", chance:1},
+    {name:"🔥 20K €", chance:0.5},
 
-]
+    {
+        name:"Advanced Tuning",
+        chance:0.0005,
+        image:"https://wiki.emergency-hamburg.com/gamepasses/tuning.png"
+    },
 
-function draw(){
+    {
+        name:"Athlete",
+        chance:0.005,
+        image:"https://wiki.emergency-hamburg.com/gamepasses/athlete.png"
+    },
 
-countries.sort((a,b)=>b.score-a.score)
+    {
+        name:"Classic Cars",
+        chance:0.003,
+        image:"https://wiki.emergency-hamburg.com/gamepasses/classic_cars_2.webp"
+    },
 
-let html=""
+    {
+        name:"Convertible",
+        chance:0.001,
+        image:"https://wiki.emergency-hamburg.com/gamepasses/convertible-vehicles.png"
+    },
 
-countries.forEach((c,i)=>{
+    {
+        name:"Crime Boss",
+        chance:0.0005,
+        image:"https://wiki.emergency-hamburg.com/gamepasses/crime_boss2.png"
+    },
 
-let style=i==0?"row gold":"row silver"
+    {
+        name:"Electric",
+        chance:0.0007,
+        image:"https://wiki.emergency-hamburg.com/gamepasses/electric-vehicles.png"
+    },
 
-let crown=i==0?"<span class='crown'>👑</span>":""
+    {
+        name:"Motorcycles",
+        chance:0.0005,
+        image:"https://wiki.emergency-hamburg.com/gamepasses/motorcycles.png"
+    },
 
-html+=`
-<div class="${style}" id="${c.name}">
-<div class="country">
-${crown}
-<img class="flag" src="${c.flag}">
-${c.name}
-</div>
-<div class="score">${c.score}</div>
-</div>
-`
+    {
+        name:"Quads",
+        chance:0.003,
+        image:"https://wiki.emergency-hamburg.com/gamepasses/quad.png"
+    },
 
-})
+    {
+        name:"S.E.K",
+        chance:0.00001,
+        image:"https://wiki.emergency-hamburg.com/gamepasses/s.e.k.jpg"
+    },
 
-document.getElementById("board").innerHTML=html
+    {
+        name:"Undercover",
+        chance:0.0007,
+        image:"https://wiki.emergency-hamburg.com/gamepasses/undercover.jpg"
+    }
 
+];
+
+const spinItems = [
+
+    ...rewards,
+
+    {name:"❌"},
+    {name:"💀"},
+    {name:"❌"},
+    {name:"💀"}
+
+];
+
+function randomItem(){
+
+    return spinItems[
+        Math.floor(Math.random()*spinItems.length)
+    ];
 }
 
-draw()
+function weightedReward(){
 
-const socket=new WebSocket("ws://localhost:3000")
+    let total = 0;
 
-socket.onmessage=function(event){
+    rewards.forEach(r => total += r.chance);
 
-let data=JSON.parse(event.data)
+    let random = Math.random() * total;
 
-let c=countries.find(x=>x.name===data.country)
+    for(let reward of rewards){
 
-if(c){
+        if(random < reward.chance){
+            return reward;
+        }
 
-c.score+=data.points
-
+        random -= reward.chance;
+    }
 }
 
-draw()
+function createItemHTML(item){
 
-let el=document.getElementById(data.country)
+    if(item.image){
 
-if(el){
+        return `
+        <div class="item">
+            <img src="${item.image}">
+        </div>
+        `;
 
-el.classList.add("flash")
+    }else{
 
-setTimeout(()=>{
-el.classList.remove("flash")
-},600)
-
+        return `
+        <div class="item">
+            ${item.name}
+        </div>
+        `;
+    }
 }
+
+function spinReel(reel,finalReward,duration){
+
+    reel.innerHTML = "";
+
+    for(let i=0;i<30;i++){
+
+        reel.innerHTML += createItemHTML(randomItem());
+
+    }
+
+    reel.innerHTML += createItemHTML(finalReward);
+
+    let pos = 0;
+
+    const interval = setInterval(()=>{
+
+        pos += 35;
+
+        reel.style.transform =
+        `translateY(-${pos}px)`;
+
+    },20);
+
+    setTimeout(()=>{
+
+        clearInterval(interval);
+
+        reel.style.transform =
+        `translateY(-6600px)`;
+
+    },duration);
+}
+
+function spin(){
+
+    const reel1 = document.getElementById("reel1");
+    const reel2 = document.getElementById("reel2");
+    const reel3 = document.getElementById("reel3");
+
+    const result = document.getElementById("result");
+
+    result.innerHTML = "";
+
+    document.querySelectorAll(".slot").forEach(slot=>{
+        slot.classList.remove("win");
+    });
+
+    const won = Math.random() < 0.12;
+
+    let reward1;
+    let reward2;
+    let reward3;
+
+    if(won){
+
+        const finalReward = weightedReward();
+
+        reward1 = finalReward;
+        reward2 = finalReward;
+        reward3 = finalReward;
+
+    }else{
+
+        reward1 = randomItem();
+        reward2 = randomItem();
+        reward3 = randomItem();
+
+        while(
+            reward1.name === reward2.name &&
+            reward2.name === reward3.name
+        ){
+
+            reward3 = randomItem();
+        }
+    }
+
+    spinReel(reel1,reward1,2200);
+    spinReel(reel2,reward2,3200);
+    spinReel(reel3,reward3,4200);
+
+    setTimeout(()=>{
+
+        if(
+            reward1.name === reward2.name &&
+            reward2.name === reward3.name
+        ){
+
+            document.querySelectorAll(".slot").forEach(slot=>{
+                slot.classList.add("win");
+            });
+
+            result.innerHTML =
+            "🎉 VYHRAL SI: " + reward1.name;
+
+        }else{
+
+            result.innerHTML =
+            "😢 Tentokrát nič...";
+        }
+
+    },4500);
 
 }
 
