@@ -18,10 +18,11 @@
 body{
 
     font-family:Arial,sans-serif;
-    height:100vh;
+
+    min-height:100vh;
 
     background:
-    linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.95)),
+    linear-gradient(rgba(0,0,0,0.85),rgba(0,0,0,0.95)),
     url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1920&auto=format&fit=crop');
 
     background-size:cover;
@@ -31,14 +32,14 @@ body{
     justify-content:center;
     align-items:center;
 
-    overflow:hidden;
+    padding:20px;
 
 }
 
 .casino{
 
-    width:95%;
-    max-width:1400px;
+    width:100%;
+    max-width:1450px;
 
     background:
     linear-gradient(to bottom,
@@ -48,7 +49,7 @@ body{
     border:4px solid red;
     border-radius:35px;
 
-    padding:35px;
+    padding:40px;
 
     box-shadow:
     0 0 30px red,
@@ -62,15 +63,15 @@ body{
 
     color:white;
 
-    font-size:70px;
+    font-size:72px;
     font-weight:bold;
 
     margin-bottom:10px;
 
     text-shadow:
     0 0 10px white,
-    0 0 20px red,
-    0 0 40px red;
+    0 0 25px red,
+    0 0 45px red;
 
 }
 
@@ -84,11 +85,11 @@ body{
 
     color:#bbb;
 
-    margin-bottom:30px;
+    margin-bottom:50px;
 
     letter-spacing:4px;
 
-    font-size:20px;
+    font-size:22px;
 
 }
 
@@ -98,7 +99,7 @@ body{
 
     justify-content:center;
 
-    align-items:flex-start;
+    align-items:center;
 
     gap:50px;
 
@@ -112,19 +113,17 @@ body{
 
     gap:25px;
 
-    margin-top:120px;
-
 }
 
 .slot{
 
-    width:230px;
-    height:230px;
+    width:250px;
+    height:250px;
 
-    background:#000;
+    background:black;
 
     border:4px solid red;
-    border-radius:25px;
+    border-radius:30px;
 
     overflow:hidden;
 
@@ -146,7 +145,7 @@ body{
 .item{
 
     width:100%;
-    height:230px;
+    height:250px;
 
     display:flex;
     justify-content:center;
@@ -155,10 +154,12 @@ body{
 
     color:white;
 
-    font-size:32px;
+    font-size:34px;
     font-weight:bold;
 
-    text-shadow:0 0 15px red;
+    text-shadow:
+    0 0 10px red,
+    0 0 20px red;
 
 }
 
@@ -173,9 +174,9 @@ body{
 
 .panel{
 
-    width:320px;
+    width:340px;
 
-    background:rgba(0,0,0,0.6);
+    background:rgba(0,0,0,0.65);
 
     border:3px solid red;
     border-radius:30px;
@@ -185,7 +186,7 @@ body{
     text-align:center;
 
     box-shadow:
-    0 0 25px red;
+    0 0 30px red;
 
 }
 
@@ -193,7 +194,7 @@ body{
 
     color:white;
 
-    font-size:38px;
+    font-size:40px;
     font-weight:bold;
 
     margin-bottom:25px;
@@ -217,7 +218,7 @@ input{
 
     border:2px solid red;
 
-    font-size:28px;
+    font-size:30px;
 
     text-align:center;
 
@@ -306,27 +307,15 @@ button:hover{
 
 }
 
-@media(max-width:900px){
-
-    body{
-
-        overflow:auto;
-        padding:15px;
-        height:auto;
-
-    }
+@media(max-width:1000px){
 
     .main{
 
         flex-direction:column;
 
-        align-items:center;
-
     }
 
     .machine{
-
-        margin-top:0;
 
         gap:10px;
 
@@ -349,6 +338,12 @@ button:hover{
     .panel{
 
         width:100%;
+
+    }
+
+    .logo{
+
+        font-size:50px;
 
     }
 
@@ -623,7 +618,7 @@ function spin(){
 
     });
 
-    // VEĽKÁ ŠANCA NA WIN
+    // ŠANCA NA WIN
 
     const won =
     Math.random() < 0.50;
