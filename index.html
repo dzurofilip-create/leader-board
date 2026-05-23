@@ -18,11 +18,10 @@
 body{
 
     font-family:Arial,sans-serif;
-
-    min-height:100vh;
+    height:100vh;
 
     background:
-    linear-gradient(rgba(0,0,0,0.85),rgba(0,0,0,0.95)),
+    linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.95)),
     url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1920&auto=format&fit=crop');
 
     background-size:cover;
@@ -32,14 +31,14 @@ body{
     justify-content:center;
     align-items:center;
 
-    padding:20px;
+    overflow:hidden;
 
 }
 
 .casino{
 
-    width:100%;
-    max-width:1450px;
+    width:95%;
+    max-width:1250px;
 
     background:
     linear-gradient(to bottom,
@@ -49,7 +48,7 @@ body{
     border:4px solid red;
     border-radius:35px;
 
-    padding:40px;
+    padding:35px;
 
     box-shadow:
     0 0 30px red,
@@ -63,15 +62,15 @@ body{
 
     color:white;
 
-    font-size:72px;
+    font-size:65px;
     font-weight:bold;
 
     margin-bottom:10px;
 
     text-shadow:
     0 0 10px white,
-    0 0 25px red,
-    0 0 45px red;
+    0 0 20px red,
+    0 0 40px red;
 
 }
 
@@ -85,11 +84,11 @@ body{
 
     color:#bbb;
 
-    margin-bottom:50px;
+    margin-bottom:35px;
 
     letter-spacing:4px;
 
-    font-size:22px;
+    font-size:20px;
 
 }
 
@@ -101,9 +100,7 @@ body{
 
     align-items:center;
 
-    gap:50px;
-
-    flex-wrap:wrap;
+    gap:35px;
 
 }
 
@@ -111,19 +108,19 @@ body{
 
     display:flex;
 
-    gap:25px;
+    gap:20px;
 
 }
 
 .slot{
 
-    width:250px;
-    height:250px;
+    width:220px;
+    height:220px;
 
     background:black;
 
     border:4px solid red;
-    border-radius:30px;
+    border-radius:25px;
 
     overflow:hidden;
 
@@ -145,7 +142,7 @@ body{
 .item{
 
     width:100%;
-    height:250px;
+    height:220px;
 
     display:flex;
     justify-content:center;
@@ -154,7 +151,7 @@ body{
 
     color:white;
 
-    font-size:34px;
+    font-size:30px;
     font-weight:bold;
 
     text-shadow:
@@ -174,19 +171,19 @@ body{
 
 .panel{
 
-    width:340px;
+    width:300px;
 
     background:rgba(0,0,0,0.65);
 
     border:3px solid red;
     border-radius:30px;
 
-    padding:30px;
+    padding:25px;
 
     text-align:center;
 
     box-shadow:
-    0 0 30px red;
+    0 0 25px red;
 
 }
 
@@ -194,7 +191,7 @@ body{
 
     color:white;
 
-    font-size:40px;
+    font-size:35px;
     font-weight:bold;
 
     margin-bottom:25px;
@@ -205,7 +202,7 @@ input{
 
     width:100%;
 
-    padding:18px;
+    padding:16px;
 
     border:none;
     outline:none;
@@ -218,11 +215,11 @@ input{
 
     border:2px solid red;
 
-    font-size:30px;
+    font-size:28px;
 
     text-align:center;
 
-    margin-bottom:20px;
+    margin-bottom:18px;
 
 }
 
@@ -230,7 +227,7 @@ button{
 
     width:100%;
 
-    padding:18px;
+    padding:16px;
 
     border:none;
 
@@ -243,12 +240,12 @@ button{
 
     color:white;
 
-    font-size:30px;
+    font-size:28px;
     font-weight:bold;
 
     cursor:pointer;
 
-    margin-bottom:18px;
+    margin-bottom:15px;
 
     box-shadow:
     0 0 20px red,
@@ -260,7 +257,7 @@ button{
 
 button:hover{
 
-    transform:scale(1.04);
+    transform:scale(1.03);
 
 }
 
@@ -270,10 +267,10 @@ button:hover{
 
     color:#ff5555;
 
-    font-size:32px;
+    font-size:28px;
     font-weight:bold;
 
-    min-height:90px;
+    min-height:80px;
 
     text-shadow:
     0 0 10px red,
@@ -309,6 +306,14 @@ button:hover{
 
 @media(max-width:1000px){
 
+    body{
+
+        overflow:auto;
+        padding:15px;
+        height:auto;
+
+    }
+
     .main{
 
         flex-direction:column;
@@ -343,7 +348,7 @@ button:hover{
 
     .logo{
 
-        font-size:50px;
+        font-size:45px;
 
     }
 
@@ -618,8 +623,6 @@ function spin(){
 
     });
 
-    // ŠANCA NA WIN
-
     const won =
     Math.random() < 0.50;
 
@@ -661,12 +664,15 @@ function spin(){
 
     setTimeout(()=>{
 
-        if(
+        const isWin =
 
-            reward1.name === reward2.name &&
-            reward2.name === reward3.name
+        reward1.name === reward2.name &&
+        reward2.name === reward3.name &&
 
-        ){
+        reward1.name !== "❌" &&
+        reward1.name !== "💀";
+
+        if(isWin){
 
             document.querySelectorAll(".slot")
             .forEach(slot=>{
