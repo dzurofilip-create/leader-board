@@ -16,9 +16,9 @@
 }
 
 body{
+
     font-family:Arial,sans-serif;
     height:100vh;
-    overflow:hidden;
 
     background:
     linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.9)),
@@ -30,12 +30,15 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
+
+    overflow:hidden;
+
 }
 
 .casino{
 
     width:95%;
-    max-width:1100px;
+    max-width:1150px;
 
     background:
     linear-gradient(to bottom,
@@ -45,7 +48,7 @@ body{
     border:4px solid red;
     border-radius:30px;
 
-    padding:25px;
+    padding:30px;
 
     box-shadow:
     0 0 30px red,
@@ -54,9 +57,12 @@ body{
 }
 
 .logo{
+
     text-align:center;
+
     color:white;
-    font-size:55px;
+
+    font-size:60px;
     font-weight:bold;
 
     margin-bottom:10px;
@@ -65,6 +71,7 @@ body{
     0 0 10px white,
     0 0 20px red,
     0 0 40px red;
+
 }
 
 .logo span{
@@ -72,51 +79,65 @@ body{
 }
 
 .subtitle{
+
     text-align:center;
+
     color:#aaa;
-    margin-bottom:25px;
+
+    margin-bottom:30px;
+
     letter-spacing:3px;
+
 }
 
 .main{
+
     display:flex;
     justify-content:center;
     align-items:center;
-    gap:30px;
+    gap:35px;
+
     flex-wrap:wrap;
+
 }
 
 .machine{
+
     display:flex;
     gap:20px;
+
 }
 
 .slot{
-    width:200px;
-    height:200px;
+
+    width:210px;
+    height:210px;
 
     background:#000;
 
     border:4px solid red;
-    border-radius:20px;
+    border-radius:25px;
 
     overflow:hidden;
     position:relative;
 
     box-shadow:
-    0 0 20px red,
-    inset 0 0 20px rgba(255,0,0,0.4);
+    0 0 25px red,
+    inset 0 0 25px rgba(255,0,0,0.4);
+
 }
 
 .reel{
+
     position:absolute;
     width:100%;
+
 }
 
 .item{
 
     width:100%;
-    height:200px;
+    height:210px;
 
     display:flex;
     justify-content:center;
@@ -124,7 +145,8 @@ body{
     flex-direction:column;
 
     color:white;
-    font-size:24px;
+
+    font-size:28px;
     font-weight:bold;
 
     text-shadow:0 0 15px red;
@@ -132,32 +154,36 @@ body{
 }
 
 .item img{
+
     width:100%;
     height:100%;
+
     object-fit:contain;
+
 }
 
 .panel{
 
-    width:260px;
+    width:280px;
 
-    background:rgba(0,0,0,0.5);
+    background:rgba(0,0,0,0.55);
 
     border:3px solid red;
-    border-radius:20px;
+    border-radius:25px;
 
-    padding:20px;
+    padding:25px;
 
     text-align:center;
 
-    box-shadow:0 0 20px red;
+    box-shadow:0 0 25px red;
 
 }
 
 .points{
 
     color:white;
-    font-size:30px;
+
+    font-size:32px;
     font-weight:bold;
 
     margin-bottom:20px;
@@ -168,17 +194,21 @@ input{
 
     width:100%;
 
-    padding:15px;
+    padding:16px;
 
     border:none;
+    outline:none;
+
     border-radius:15px;
 
     background:#111;
+
     color:white;
 
     border:2px solid red;
 
-    font-size:22px;
+    font-size:24px;
+
     text-align:center;
 
     margin-bottom:15px;
@@ -189,9 +219,10 @@ button{
 
     width:100%;
 
-    padding:15px;
+    padding:16px;
 
     border:none;
+
     border-radius:15px;
 
     background:
@@ -201,7 +232,7 @@ button{
 
     color:white;
 
-    font-size:22px;
+    font-size:24px;
     font-weight:bold;
 
     cursor:pointer;
@@ -211,6 +242,8 @@ button{
     box-shadow:
     0 0 20px red,
     inset 0 0 10px rgba(255,255,255,0.2);
+
+    transition:0.2s;
 
 }
 
@@ -222,31 +255,41 @@ button:hover{
 
     margin-top:15px;
 
-    color:#ff4444;
+    color:#ff5555;
 
-    font-size:24px;
+    font-size:26px;
     font-weight:bold;
 
-    min-height:60px;
+    min-height:70px;
+
+    text-shadow:
+    0 0 10px red,
+    0 0 20px red;
 
 }
 
 .win{
+
     animation:glow 0.5s infinite alternate;
+
 }
 
 @keyframes glow{
 
     from{
+
         box-shadow:
-        0 0 20px red,
+        0 0 25px red,
         inset 0 0 20px rgba(255,0,0,0.4);
+
     }
 
     to{
+
         box-shadow:
-        0 0 40px white,
-        inset 0 0 30px rgba(255,255,255,0.4);
+        0 0 50px white,
+        inset 0 0 35px rgba(255,255,255,0.4);
+
     }
 
 }
@@ -254,31 +297,43 @@ button:hover{
 @media(max-width:900px){
 
     body{
+
         overflow:auto;
         padding:15px;
         height:auto;
+
     }
 
     .main{
+
         flex-direction:column;
+
     }
 
     .machine{
+
         gap:10px;
+
     }
 
     .slot{
+
         width:30vw;
         height:30vw;
+
     }
 
     .item{
+
         height:30vw;
         font-size:16px;
+
     }
 
     .panel{
+
         width:100%;
+
     }
 
 }
@@ -352,32 +407,32 @@ button:hover{
 
 const rewards = [
 
-    {name:"💵 1K €", chance:80},
-    {name:"💵 2K €", chance:60},
-    {name:"💵 3K €", chance:45},
-    {name:"💵 4K €", chance:30},
-    {name:"💵 5K €", chance:20},
-    {name:"💵 6K €", chance:15},
-    {name:"💵 7K €", chance:10},
-    {name:"💵 8K €", chance:6},
-    {name:"💰 12.5K €", chance:3},
-    {name:"🔥 20K €", chance:1},
+    {name:"💵 1K €", chance:120},
+    {name:"💵 2K €", chance:90},
+    {name:"💵 3K €", chance:70},
+    {name:"💵 4K €", chance:55},
+    {name:"💵 5K €", chance:40},
+    {name:"💵 6K €", chance:30},
+    {name:"💵 7K €", chance:20},
+    {name:"💵 8K €", chance:15},
+    {name:"💰 12.5K €", chance:8},
+    {name:"🔥 20K €", chance:4},
 
     {
         name:"⚙️ TUNING",
-        chance:0.7,
+        chance:2,
         image:"https://wiki.emergency-hamburg.com/gamepasses/tuning.png"
     },
 
     {
         name:"🏃 ATHLETE",
-        chance:0.7,
+        chance:2,
         image:"https://wiki.emergency-hamburg.com/gamepasses/athlete.png"
     },
 
     {
         name:"🚗 CLASSIC",
-        chance:0.4,
+        chance:1,
         image:"https://wiki.emergency-hamburg.com/gamepasses/classic_cars_2.webp"
     }
 
@@ -401,20 +456,28 @@ function addPoints(){
     const money =
     parseInt(document.getElementById("moneyInput").value);
 
+    const result =
+    document.getElementById("result");
+
     if(!money || money < 1000){
 
-        alert("❌ Minimálne 1000€");
+        result.innerHTML =
+        "❌ Minimálne 1000€";
 
         return;
+
     }
 
-    const added =
+    const addedPoints =
     Math.floor(money / 1000);
 
-    points += added;
+    points += addedPoints;
 
     document.getElementById("points").innerHTML =
     points;
+
+    result.innerHTML =
+    `✅ Pridaných ${addedPoints} TOČIEK`;
 
     document.getElementById("moneyInput").value = "";
 
@@ -467,6 +530,7 @@ function createItemHTML(item){
             ${item.name}
         </div>
         `;
+
     }
 
 }
@@ -475,19 +539,21 @@ function spinReel(reel,finalReward,duration){
 
     reel.innerHTML = "";
 
-    for(let i=0;i<30;i++){
+    for(let i=0;i<35;i++){
 
-        reel.innerHTML += createItemHTML(randomItem());
+        reel.innerHTML +=
+        createItemHTML(randomItem());
 
     }
 
-    reel.innerHTML += createItemHTML(finalReward);
+    reel.innerHTML +=
+    createItemHTML(finalReward);
 
     let pos = 0;
 
     const interval = setInterval(()=>{
 
-        pos += 35;
+        pos += 40;
 
         reel.style.transform =
         `translateY(-${pos}px)`;
@@ -499,7 +565,7 @@ function spinReel(reel,finalReward,duration){
         clearInterval(interval);
 
         reel.style.transform =
-        `translateY(-6000px)`;
+        `translateY(-7000px)`;
 
     },duration);
 
@@ -513,7 +579,7 @@ function spin(){
     if(points <= 0){
 
         result.innerHTML =
-        "❌ NEMÁŠ TOČKY";
+        "❌ NEMÁŠ ŽIADNE TOČKY";
 
         return;
 
@@ -542,10 +608,10 @@ function spin(){
 
     });
 
-    // REALISTICKEJŠIA ŠANCA
+    // VEĽKÁ ŠANCA NA WIN
 
     const won =
-    Math.random() < 0.22;
+    Math.random() < 0.45;
 
     let reward1;
     let reward2;
@@ -600,8 +666,7 @@ function spin(){
             });
 
             result.innerHTML =
-            "🎉 VYHRAL SI: " +
-            reward1.name;
+            `🎉 VYHRAL SI: ${reward1.name}`;
 
         }else{
 
