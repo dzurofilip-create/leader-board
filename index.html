@@ -16,12 +16,12 @@
 }
 
 body{
+
     font-family:Arial,sans-serif;
     height:100vh;
-    overflow:hidden;
 
     background:
-    linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.9)),
+    linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.95)),
     url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1920&auto=format&fit=crop');
 
     background-size:cover;
@@ -30,33 +30,39 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
+
+    overflow:hidden;
+
 }
 
 .casino{
 
     width:95%;
-    max-width:1100px;
+    max-width:1400px;
 
     background:
     linear-gradient(to bottom,
-    rgba(25,0,0,0.95),
-    rgba(0,0,0,0.97));
+    rgba(20,0,0,0.95),
+    rgba(0,0,0,0.98));
 
     border:4px solid red;
-    border-radius:30px;
+    border-radius:35px;
 
-    padding:25px;
+    padding:35px;
 
     box-shadow:
     0 0 30px red,
-    0 0 80px rgba(255,0,0,0.5);
+    0 0 80px rgba(255,0,0,0.6);
 
 }
 
 .logo{
+
     text-align:center;
+
     color:white;
-    font-size:55px;
+
+    font-size:70px;
     font-weight:bold;
 
     margin-bottom:10px;
@@ -65,6 +71,7 @@ body{
     0 0 10px white,
     0 0 20px red,
     0 0 40px red;
+
 }
 
 .logo span{
@@ -72,51 +79,74 @@ body{
 }
 
 .subtitle{
+
     text-align:center;
-    color:#aaa;
-    margin-bottom:25px;
-    letter-spacing:3px;
+
+    color:#bbb;
+
+    margin-bottom:30px;
+
+    letter-spacing:4px;
+
+    font-size:20px;
+
 }
 
 .main{
+
     display:flex;
+
     justify-content:center;
-    align-items:center;
-    gap:30px;
+
+    align-items:flex-start;
+
+    gap:50px;
+
     flex-wrap:wrap;
+
 }
 
 .machine{
+
     display:flex;
-    gap:20px;
+
+    gap:25px;
+
+    margin-top:120px;
+
 }
 
 .slot{
-    width:200px;
-    height:200px;
+
+    width:230px;
+    height:230px;
 
     background:#000;
 
     border:4px solid red;
-    border-radius:20px;
+    border-radius:25px;
 
     overflow:hidden;
+
     position:relative;
 
     box-shadow:
-    0 0 20px red,
-    inset 0 0 20px rgba(255,0,0,0.4);
+    0 0 25px red,
+    inset 0 0 25px rgba(255,0,0,0.4);
+
 }
 
 .reel{
+
     position:absolute;
     width:100%;
+
 }
 
 .item{
 
     width:100%;
-    height:200px;
+    height:230px;
 
     display:flex;
     justify-content:center;
@@ -124,7 +154,8 @@ body{
     flex-direction:column;
 
     color:white;
-    font-size:24px;
+
+    font-size:32px;
     font-weight:bold;
 
     text-shadow:0 0 15px red;
@@ -132,35 +163,40 @@ body{
 }
 
 .item img{
+
     width:100%;
     height:100%;
+
     object-fit:contain;
+
 }
 
 .panel{
 
-    width:260px;
+    width:320px;
 
-    background:rgba(0,0,0,0.5);
+    background:rgba(0,0,0,0.6);
 
     border:3px solid red;
-    border-radius:20px;
+    border-radius:30px;
 
-    padding:20px;
+    padding:30px;
 
     text-align:center;
 
-    box-shadow:0 0 20px red;
+    box-shadow:
+    0 0 25px red;
 
 }
 
 .points{
 
     color:white;
-    font-size:30px;
+
+    font-size:38px;
     font-weight:bold;
 
-    margin-bottom:20px;
+    margin-bottom:25px;
 
 }
 
@@ -168,20 +204,24 @@ input{
 
     width:100%;
 
-    padding:15px;
+    padding:18px;
 
     border:none;
-    border-radius:15px;
+    outline:none;
+
+    border-radius:18px;
 
     background:#111;
+
     color:white;
 
     border:2px solid red;
 
-    font-size:22px;
+    font-size:28px;
+
     text-align:center;
 
-    margin-bottom:15px;
+    margin-bottom:20px;
 
 }
 
@@ -189,10 +229,11 @@ button{
 
     width:100%;
 
-    padding:15px;
+    padding:18px;
 
     border:none;
-    border-radius:15px;
+
+    border-radius:18px;
 
     background:
     linear-gradient(to bottom,
@@ -201,52 +242,66 @@ button{
 
     color:white;
 
-    font-size:22px;
+    font-size:30px;
     font-weight:bold;
 
     cursor:pointer;
 
-    margin-bottom:15px;
+    margin-bottom:18px;
 
     box-shadow:
     0 0 20px red,
     inset 0 0 10px rgba(255,255,255,0.2);
 
+    transition:0.2s;
+
 }
 
 button:hover{
-    transform:scale(1.03);
+
+    transform:scale(1.04);
+
 }
 
 .result{
 
-    margin-top:15px;
+    margin-top:20px;
 
-    color:#ff4444;
+    color:#ff5555;
 
-    font-size:24px;
+    font-size:32px;
     font-weight:bold;
 
-    min-height:60px;
+    min-height:90px;
+
+    text-shadow:
+    0 0 10px red,
+    0 0 20px red;
 
 }
 
 .win{
+
     animation:glow 0.5s infinite alternate;
+
 }
 
 @keyframes glow{
 
     from{
+
         box-shadow:
-        0 0 20px red,
+        0 0 25px red,
         inset 0 0 20px rgba(255,0,0,0.4);
+
     }
 
     to{
+
         box-shadow:
-        0 0 40px white,
-        inset 0 0 30px rgba(255,255,255,0.4);
+        0 0 55px white,
+        inset 0 0 35px rgba(255,255,255,0.5);
+
     }
 
 }
@@ -254,31 +309,47 @@ button:hover{
 @media(max-width:900px){
 
     body{
+
         overflow:auto;
         padding:15px;
         height:auto;
+
     }
 
     .main{
+
         flex-direction:column;
+
+        align-items:center;
+
     }
 
     .machine{
+
+        margin-top:0;
+
         gap:10px;
+
     }
 
     .slot{
+
         width:30vw;
         height:30vw;
+
     }
 
     .item{
+
         height:30vw;
-        font-size:16px;
+        font-size:18px;
+
     }
 
     .panel{
+
         width:100%;
+
     }
 
 }
@@ -352,32 +423,31 @@ button:hover{
 
 const rewards = [
 
-    {name:"💵 1K €", chance:80},
-    {name:"💵 2K €", chance:60},
-    {name:"💵 3K €", chance:45},
-    {name:"💵 4K €", chance:30},
-    {name:"💵 5K €", chance:20},
-    {name:"💵 6K €", chance:15},
-    {name:"💵 7K €", chance:10},
-    {name:"💵 8K €", chance:6},
-    {name:"💰 12.5K €", chance:3},
-    {name:"🔥 20K €", chance:1},
+    {name:"💵 1K €", chance:120},
+    {name:"💵 2K €", chance:90},
+    {name:"💵 3K €", chance:70},
+    {name:"💵 4K €", chance:55},
+    {name:"💵 5K €", chance:40},
+    {name:"💵 6K €", chance:30},
+    {name:"💵 7K €", chance:20},
+    {name:"💵 8K €", chance:15},
+    {name:"🔥 20K €", chance:5},
 
     {
         name:"⚙️ TUNING",
-        chance:0.7,
+        chance:2,
         image:"https://wiki.emergency-hamburg.com/gamepasses/tuning.png"
     },
 
     {
         name:"🏃 ATHLETE",
-        chance:0.7,
+        chance:2,
         image:"https://wiki.emergency-hamburg.com/gamepasses/athlete.png"
     },
 
     {
         name:"🚗 CLASSIC",
-        chance:0.4,
+        chance:1,
         image:"https://wiki.emergency-hamburg.com/gamepasses/classic_cars_2.webp"
     }
 
@@ -401,20 +471,28 @@ function addPoints(){
     const money =
     parseInt(document.getElementById("moneyInput").value);
 
+    const result =
+    document.getElementById("result");
+
     if(!money || money < 1000){
 
-        alert("❌ Minimálne 1000€");
+        result.innerHTML =
+        "❌ Minimálne 1000€";
 
         return;
+
     }
 
-    const added =
+    const addedPoints =
     Math.floor(money / 1000);
 
-    points += added;
+    points += addedPoints;
 
     document.getElementById("points").innerHTML =
     points;
+
+    result.innerHTML =
+    `✅ Pridaných ${addedPoints} TOČIEK`;
 
     document.getElementById("moneyInput").value = "";
 
@@ -467,6 +545,7 @@ function createItemHTML(item){
             ${item.name}
         </div>
         `;
+
     }
 
 }
@@ -475,19 +554,21 @@ function spinReel(reel,finalReward,duration){
 
     reel.innerHTML = "";
 
-    for(let i=0;i<30;i++){
+    for(let i=0;i<35;i++){
 
-        reel.innerHTML += createItemHTML(randomItem());
+        reel.innerHTML +=
+        createItemHTML(randomItem());
 
     }
 
-    reel.innerHTML += createItemHTML(finalReward);
+    reel.innerHTML +=
+    createItemHTML(finalReward);
 
     let pos = 0;
 
     const interval = setInterval(()=>{
 
-        pos += 35;
+        pos += 40;
 
         reel.style.transform =
         `translateY(-${pos}px)`;
@@ -499,7 +580,7 @@ function spinReel(reel,finalReward,duration){
         clearInterval(interval);
 
         reel.style.transform =
-        `translateY(-6000px)`;
+        `translateY(-7000px)`;
 
     },duration);
 
@@ -513,7 +594,7 @@ function spin(){
     if(points <= 0){
 
         result.innerHTML =
-        "❌ NEMÁŠ TOČKY";
+        "❌ NEMÁŠ ŽIADNE TOČKY";
 
         return;
 
@@ -542,10 +623,10 @@ function spin(){
 
     });
 
-    // REALISTICKEJŠIA ŠANCA
+    // VEĽKÁ ŠANCA NA WIN
 
     const won =
-    Math.random() < 0.22;
+    Math.random() < 0.50;
 
     let reward1;
     let reward2;
@@ -600,8 +681,7 @@ function spin(){
             });
 
             result.innerHTML =
-            "🎉 VYHRAL SI: " +
-            reward1.name;
+            `🎉 VYHRAL SI: ${reward1.name}`;
 
         }else{
 
