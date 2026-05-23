@@ -209,6 +209,27 @@ body::before{
     text-align:center;
 }
 
+.spin-input{
+    width:100%;
+    max-width:300px;
+    padding:15px;
+    border-radius:15px;
+    border:none;
+    margin-bottom:15px;
+    font-size:22px;
+    text-align:center;
+    background:#111;
+    color:white;
+    border:2px solid red;
+}
+
+.points{
+    color:#ff5555;
+    margin-bottom:15px;
+    font-size:22px;
+    font-weight:bold;
+}
+
 button{
     background:
     linear-gradient(to bottom,
@@ -386,6 +407,17 @@ button:hover{
 
     <div class="center">
 
+        <input
+        type="number"
+        id="spinPrice"
+        class="spin-input"
+        placeholder="Cena spinu €"
+        value="1000">
+
+        <div class="points" id="tokenInfo">
+            🎟️ 1 TOČKA
+        </div>
+
         <button onclick="spin()">🔴 TOČIŤ</button>
 
         <div class="result" id="result"></div>
@@ -402,26 +434,26 @@ button:hover{
 
 const rewards = [
 
-    {name:"💵 1K €", chance:50},
-    {name:"💵 2K €", chance:40},
-    {name:"💵 3K €", chance:25},
-    {name:"💵 4K €", chance:15},
-    {name:"💵 5K €", chance:10},
-    {name:"💵 6K €", chance:8},
-    {name:"💵 7K €", chance:5},
-    {name:"💵 8K €", chance:3},
-    {name:"💰 12.5K €", chance:2},
+    {name:"💵 1K €", chance:80},
+    {name:"💵 2K €", chance:60},
+    {name:"💵 3K €", chance:45},
+    {name:"💵 4K €", chance:30},
+    {name:"💵 5K €", chance:20},
+    {name:"💵 6K €", chance:15},
+    {name:"💵 7K €", chance:10},
+    {name:"💵 8K €", chance:6},
+    {name:"💰 12.5K €", chance:3},
     {name:"🔥 20K €", chance:1},
 
     {
         name:"⚙️ TUNING GAMEPASS",
-        chance:0.5,
+        chance:0.8,
         image:"https://wiki.emergency-hamburg.com/gamepasses/tuning.png"
     },
 
     {
-        name:"🏃🏻‍♀️‍➡️ ATHLETE GAMEPASS",
-        chance:0.9,
+        name:"🏃🏻‍♀️ ATHLETE GAMEPASS",
+        chance:0.8,
         image:"https://wiki.emergency-hamburg.com/gamepasses/athlete.png"
     },
 
@@ -432,49 +464,49 @@ const rewards = [
     },
 
     {
-        name:"🚘 CONVERTIBLE CARS GAMEPASS",
-        chance:0.3,
+        name:"🚘 CONVERTIBLE GAMEPASS",
+        chance:0.4,
         image:"https://wiki.emergency-hamburg.com/gamepasses/convertible-vehicles.png"
     },
 
     {
         name:"🥷 CRIME BOSS GAMEPASS",
-        chance:0.09,
+        chance:0.1,
         image:"https://wiki.emergency-hamburg.com/gamepasses/crime_boss2.png"
     },
 
     {
-        name:"⚡ ELECTRIC CARS GAMEPASS",
-        chance:0.1,
+        name:"⚡ ELECTRIC CARS",
+        chance:0.2,
         image:"https://wiki.emergency-hamburg.com/gamepasses/electric-vehicles.png"
     },
 
     {
-        name:"🏍️ MOTORYCLES GAMEPASS",
-        chance:0.1,
+        name:"🏍️ MOTORCYCLES",
+        chance:0.2,
         image:"https://wiki.emergency-hamburg.com/gamepasses/motorcycles.png"
     },
 
     {
-        name:"🏍️ QUADS GAMEPASS",
-        chance:0.5,
+        name:"🏍️ QUADS",
+        chance:0.4,
         image:"https://wiki.emergency-hamburg.com/gamepasses/quad.png"
     },
 
     {
         name:"🪖 S.E.K GAMEPASS",
-        chance:0.001,
+        chance:0.01,
         image:"https://wiki.emergency-hamburg.com/gamepasses/s.e.k.jpg"
     },
 
     {
-        name:"🕵🏻‍♂️ UNDERCOVER GAMEPASS",
+        name:"🕵🏻 UNDERCOVER",
         chance:0.1,
         image:"https://wiki.emergency-hamburg.com/gamepasses/undercover.jpg"
     }
 
 ];
-    
+
 const spinItems = [
 
     ...rewards,
@@ -485,6 +517,19 @@ const spinItems = [
     {name:"💀"}
 
 ];
+
+const spinInput = document.getElementById("spinPrice");
+
+spinInput.addEventListener("input", ()=>{
+
+    const value = parseInt(spinInput.value) || 0;
+
+    const points = Math.floor(value / 1000);
+
+    document.getElementById("tokenInfo").innerHTML =
+    `🎟️ ${points} TOČKY`;
+
+});
 
 function randomItem(){
 
@@ -572,13 +617,28 @@ function spin(){
 
     const result = document.getElementById("result");
 
+    const spinValue =
+    parseInt(document.getElementById("spinPrice").value) || 1000;
+
+    const points = Math.floor(spinValue / 1000);
+
     result.innerHTML = "";
 
     document.querySelectorAll(".slot").forEach(slot=>{
         slot.classList.remove("win");
     });
 
-    const won = Math.random() < 0.12;
+    // LEPŠIA REALISTICKÁ ŠANCA
+
+    let baseChance = 0.18;
+
+    baseChance += points * 0.01;
+
+    if(baseChance > 0.35){
+        baseChance = 0.35;
+    }
+
+    const won = Math.random() < baseChance;
 
     let reward1;
     let reward2;
@@ -586,7 +646,19 @@ function spin(){
 
     if(won){
 
-        const finalReward = weightedReward();
+        let finalReward = weightedReward();
+
+        // vyššie spiny = lepšie šance
+
+        if(points >= 5 && Math.random() < 0.25){
+
+            finalReward =
+            rewards[
+                Math.floor(
+                    Math.random() * (rewards.length / 2)
+                )
+            ];
+        }
 
         reward1 = finalReward;
         reward2 = finalReward;
@@ -623,12 +695,14 @@ function spin(){
             });
 
             result.innerHTML =
-            "🎉 VYHRAL SI: " + reward1.name;
+            `🎉 VYHRAL SI: ${reward1.name}<br>
+            🎟️ TOČKY: ${points}`;
 
         }else{
 
             result.innerHTML =
-            "😢 Tentokrát nič...";
+            `😢 Tentokrát nič...<br>
+            🎟️ MINUL SI ${points} TOČKY`;
         }
 
     },4500);
