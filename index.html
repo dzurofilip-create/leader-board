@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>UNDERGROUND RP CASINO</title>
+<title>LIVE SÚBOJ KRAJÍN</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<script src="/socket.io/socket.io.js"></script>
 
 <style>
 
@@ -16,342 +19,368 @@
 }
 
 body{
-
-    font-family:Arial,sans-serif;
-    height:100vh;
+    font-family:'Poppins',sans-serif;
 
     background:
-    linear-gradient(rgba(0,0,0,0.8),rgba(0,0,0,0.95)),
-    url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1920&auto=format&fit=crop');
+        radial-gradient(circle at top left,#13294b,#081120 70%);
 
-    background-size:cover;
-    background-position:center;
+    min-height:100vh;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    padding:20px;
 
     overflow:hidden;
-
 }
 
-.casino{
+body::before{
 
-    width:95%;
-    max-width:1250px;
+    content:"";
 
-    background:
-    linear-gradient(to bottom,
-    rgba(20,0,0,0.95),
-    rgba(0,0,0,0.98));
+    position:fixed;
+    inset:0;
 
-    border:4px solid red;
-    border-radius:35px;
+    background-image:
+        radial-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
 
-    padding:35px;
+    background-size:32px 32px;
 
-    box-shadow:
-    0 0 30px red,
-    0 0 80px rgba(255,0,0,0.6);
+    animation:bgMove 14s linear infinite;
 
+    pointer-events:none;
 }
 
-.logo{
-
-    text-align:center;
-
-    color:white;
-
-    font-size:65px;
-    font-weight:bold;
-
-    margin-bottom:10px;
-
-    text-shadow:
-    0 0 10px white,
-    0 0 20px red,
-    0 0 40px red;
-
-}
-
-.logo span{
-    color:red;
-}
-
-.subtitle{
-
-    text-align:center;
-
-    color:#bbb;
-
-    margin-bottom:35px;
-
-    letter-spacing:4px;
-
-    font-size:20px;
-
-}
-
-.main{
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:35px;
-
-}
-
-.machine{
-
-    display:flex;
-
-    gap:20px;
-
-}
-
-.slot{
-
-    width:220px;
-    height:220px;
-
-    background:black;
-
-    border:4px solid red;
-    border-radius:25px;
-
-    overflow:hidden;
-
-    position:relative;
-
-    box-shadow:
-    0 0 25px red,
-    inset 0 0 25px rgba(255,0,0,0.4);
-
-}
-
-.reel{
-
-    position:absolute;
-    width:100%;
-
-}
-
-.item{
-
-    width:100%;
-    height:220px;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-
-    color:white;
-
-    font-size:30px;
-    font-weight:bold;
-
-    text-shadow:
-    0 0 10px red,
-    0 0 20px red;
-
-}
-
-.item img{
-
-    width:100%;
-    height:100%;
-
-    object-fit:contain;
-
-}
-
-.panel{
-
-    width:300px;
-
-    background:rgba(0,0,0,0.65);
-
-    border:3px solid red;
-    border-radius:30px;
-
-    padding:25px;
-
-    text-align:center;
-
-    box-shadow:
-    0 0 25px red;
-
-}
-
-.points{
-
-    color:white;
-
-    font-size:35px;
-    font-weight:bold;
-
-    margin-bottom:25px;
-
-}
-
-input{
-
-    width:100%;
-
-    padding:16px;
-
-    border:none;
-    outline:none;
-
-    border-radius:18px;
-
-    background:#111;
-
-    color:white;
-
-    border:2px solid red;
-
-    font-size:28px;
-
-    text-align:center;
-
-    margin-bottom:18px;
-
-}
-
-button{
-
-    width:100%;
-
-    padding:16px;
-
-    border:none;
-
-    border-radius:18px;
-
-    background:
-    linear-gradient(to bottom,
-    #ff2b2b,
-    #a00000);
-
-    color:white;
-
-    font-size:28px;
-    font-weight:bold;
-
-    cursor:pointer;
-
-    margin-bottom:15px;
-
-    box-shadow:
-    0 0 20px red,
-    inset 0 0 10px rgba(255,255,255,0.2);
-
-    transition:0.2s;
-
-}
-
-button:hover{
-
-    transform:scale(1.03);
-
-}
-
-.result{
-
-    margin-top:20px;
-
-    color:#ff5555;
-
-    font-size:28px;
-    font-weight:bold;
-
-    min-height:80px;
-
-    text-shadow:
-    0 0 10px red,
-    0 0 20px red;
-
-}
-
-.win{
-
-    animation:glow 0.5s infinite alternate;
-
-}
-
-@keyframes glow{
+@keyframes bgMove{
 
     from{
-
-        box-shadow:
-        0 0 25px red,
-        inset 0 0 20px rgba(255,0,0,0.4);
-
+        transform:translateY(0px);
     }
 
     to{
-
-        box-shadow:
-        0 0 55px white,
-        inset 0 0 35px rgba(255,255,255,0.5);
-
+        transform:translateY(32px);
     }
-
 }
 
-@media(max-width:1000px){
+.wrapper{
 
-    body{
+    display:flex;
+    gap:30px;
+}
 
-        overflow:auto;
-        padding:15px;
-        height:auto;
+/* TITLE */
 
+.title{
+
+    color:white;
+
+    font-size:42px;
+    font-weight:800;
+
+    margin-bottom:25px;
+
+    text-shadow:
+        0 0 20px rgba(0,255,255,.35);
+}
+
+/* LEADERBOARD */
+
+.container{
+    width:520px;
+}
+
+/* CARD */
+
+.country-card{
+
+    position:relative;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    width:100%;
+
+    padding:16px 20px;
+
+    margin-bottom:16px;
+
+    border-radius:24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(35,58,90,.96),
+            rgba(12,18,28,.96)
+        );
+
+    border:2px solid rgba(255,255,255,.08);
+
+    box-shadow:
+        0 0 18px rgba(0,170,255,.15);
+
+    transition:.35s;
+}
+
+.country-card:hover{
+
+    transform:
+        translateY(-4px)
+        scale(1.02);
+}
+
+.top-country{
+
+    border:2px solid gold;
+
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+
+    0%{
+        box-shadow:0 0 10px gold;
     }
 
-    .main{
-
-        flex-direction:column;
-
+    50%{
+        box-shadow:0 0 30px gold;
     }
 
-    .machine{
+    100%{
+        box-shadow:0 0 10px gold;
+    }
+}
 
-        gap:10px;
+.leader{
 
+    position:absolute;
+
+    top:-10px;
+    right:18px;
+
+    background:gold;
+
+    color:black;
+
+    font-size:11px;
+    font-weight:800;
+
+    padding:5px 12px;
+
+    border-radius:999px;
+}
+
+.country-left{
+
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+}
+
+.rank{
+
+    width:34px;
+    height:34px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff00cc,
+            #5b2dff
+        );
+
+    color:white;
+
+    font-size:13px;
+    font-weight:800;
+}
+
+.flag{
+
+    width:42px;
+    height:28px;
+
+    object-fit:cover;
+
+    border-radius:6px;
+}
+
+.country-name{
+
+    color:white;
+
+    font-size:20px;
+    font-weight:700;
+}
+
+.live-dot{
+
+    width:10px;
+    height:10px;
+
+    border-radius:50%;
+
+    background:#00ff66;
+
+    box-shadow:
+        0 0 12px #00ff66;
+
+    animation:livePulse 1s infinite;
+}
+
+@keyframes livePulse{
+
+    0%{
+        transform:scale(1);
     }
 
-    .slot{
-
-        width:30vw;
-        height:30vw;
-
+    50%{
+        transform:scale(1.5);
     }
 
-    .item{
-
-        height:30vw;
-        font-size:18px;
-
+    100%{
+        transform:scale(1);
     }
+}
 
-    .panel{
+.country-right{
 
-        width:100%;
+    display:flex;
+    gap:18px;
+}
 
-    }
+.score,
+.gift{
 
-    .logo{
+    min-width:90px;
+    height:44px;
 
-        font-size:45px;
+    border:none;
 
-    }
+    border-radius:14px;
 
+    color:white;
+
+    font-size:15px;
+    font-weight:700;
+}
+
+.score{
+
+    background:
+        rgba(255,255,255,.08);
+}
+
+.gift{
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffcc00,
+            #ff8800
+        );
+}
+
+/* CONTROL PANEL */
+
+.controls{
+
+    width:320px;
+
+    padding:24px;
+
+    border-radius:24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(25,35,55,.96),
+            rgba(10,15,25,.96)
+        );
+
+    border:2px solid rgba(255,255,255,.08);
+
+    height:fit-content;
+}
+
+.controls h2{
+
+    color:white;
+
+    margin-bottom:20px;
+}
+
+.controls label{
+
+    color:white;
+
+    font-size:14px;
+
+    display:block;
+
+    margin-bottom:8px;
+}
+
+.controls select,
+.controls input{
+
+    width:100%;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:14px;
+
+    margin-bottom:18px;
+
+    padding:0 14px;
+
+    font-size:15px;
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+}
+
+.controls option{
+    color:black;
+}
+
+.manual-btn{
+
+    width:100%;
+
+    height:52px;
+
+    border:none;
+
+    border-radius:14px;
+
+    color:white;
+
+    font-size:16px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00c6ff,
+            #0072ff
+        );
+
+    transition:.3s;
+}
+
+.manual-btn:hover{
+
+    transform:scale(1.03);
 }
 
 </style>
@@ -359,341 +388,277 @@ button:hover{
 
 <body>
 
-<div class="casino">
+<div class="wrapper">
 
-    <div class="logo">
-        UNDERGROUND <span>RP</span>
-    </div>
+<div class="container">
 
-    <div class="subtitle">
-        EMERGENCY HAMBURG CASINO
-    </div>
+<div class="title">
+🌍 LIVE SÚBOJ KRAJÍN
+</div>
 
-    <div class="main">
+<div id="leaderboard"></div>
 
-        <!-- AUTOMAT -->
+</div>
 
-        <div class="machine">
+<!-- CONTROL PANEL -->
 
-            <div class="slot">
-                <div class="reel" id="reel1"></div>
-            </div>
+<div class="controls">
 
-            <div class="slot">
-                <div class="reel" id="reel2"></div>
-            </div>
+<h2>🎮 Ovládací panel</h2>
 
-            <div class="slot">
-                <div class="reel" id="reel3"></div>
-            </div>
+<label>Krajina</label>
 
-        </div>
+<select id="countrySelect">
 
-        <!-- PANEL -->
+<option value="Slovensko">🇸🇰 Slovensko</option>
+<option value="Nemecko">🇩🇪 Nemecko</option>
+<option value="Rakúsko">🇦🇹 Rakúsko</option>
+<option value="Česko">🇨🇿 Česko</option>
+<option value="Maďarsko">🇭🇺 Maďarsko</option>
+<option value="Chorvátsko">🇭🇷 Chorvátsko</option>
+<option value="Poľsko">🇵🇱 Poľsko</option>
+<option value="Ukrajina">🇺🇦 Ukrajina</option>
+<option value="Srbsko">🇷🇸 Srbsko</option>
+<option value="Albánsko">🇦🇱 Albánsko</option>
 
-        <div class="panel">
+</select>
 
-            <div class="points">
-                🎟️ TOČKY:
-                <span id="points">0</span>
-            </div>
+<label>Typ</label>
 
-            <input
-            type="number"
-            id="moneyInput"
-            placeholder="Napr. 4000">
+<select id="typeSelect">
 
-            <button onclick="addPoints()">
-                ➕ PRIDAŤ TOČKY
-            </button>
+<option value="score">Body</option>
+<option value="gifts">Tituly</option>
 
-            <button onclick="spin()">
-                🔴 TOČIŤ
-            </button>
+</select>
 
-            <div class="result" id="result"></div>
+<label>Koľko pridať</label>
 
-        </div>
+<input
+    type="number"
+    id="amountInput"
+    placeholder="Napr. 500"
+/>
 
-    </div>
+<button
+    class="manual-btn"
+    onclick="manualAdd()"
+>
+➕ Pridať
+</button>
+
+</div>
 
 </div>
 
 <script>
 
-const rewards = [
+/* SOCKET */
 
-    {name:"💵 1K €", chance:120},
-    {name:"💵 2K €", chance:90},
-    {name:"💵 3K €", chance:70},
-    {name:"💵 4K €", chance:55},
-    {name:"💵 5K €", chance:40},
-    {name:"💵 6K €", chance:30},
-    {name:"💵 7K €", chance:20},
-    {name:"💵 8K €", chance:15},
-    {name:"🔥 20K €", chance:5},
+const socket = io();
 
-    {
-        name:"⚙️ TUNING",
-        chance:2,
-        image:"https://wiki.emergency-hamburg.com/gamepasses/tuning.png"
-    },
+/* COUNTRIES */
 
-    {
-        name:"🏃 ATHLETE",
-        chance:2,
-        image:"https://wiki.emergency-hamburg.com/gamepasses/athlete.png"
-    },
+const countries = [
 
-    {
-        name:"🚗 CLASSIC",
-        chance:1,
-        image:"https://wiki.emergency-hamburg.com/gamepasses/classic_cars_2.webp"
-    }
+{
+    name:"Slovensko",
+    code:"sk",
+    score:0,
+    gifts:0
+},
+
+{
+    name:"Nemecko",
+    code:"de",
+    score:0,
+    gifts:0
+},
+
+{
+    name:"Rakúsko",
+    code:"at",
+    score:0,
+    gifts:0
+},
+
+{
+    name:"Česko",
+    code:"cz",
+    score:0,
+    gifts:0
+},
+
+{
+    name:"Maďarsko",
+    code:"hu",
+    score:0,
+    gifts:0
+},
+
+{
+    name:"Chorvátsko",
+    code:"hr",
+    score:0,
+    gifts:0
+},
+
+{
+    name:"Poľsko",
+    code:"pl",
+    score:0,
+    gifts:0
+},
+
+{
+    name:"Ukrajina",
+    code:"ua",
+    score:0,
+    gifts:0
+},
+
+{
+    name:"Srbsko",
+    code:"rs",
+    score:0,
+    gifts:0
+},
+
+{
+    name:"Albánsko",
+    code:"al",
+    score:0,
+    gifts:0
+}
 
 ];
 
-const spinItems = [
+/* RENDER */
 
-    ...rewards,
+function renderLeaderboard(){
 
-    {name:"❌"},
-    {name:"💀"},
-    {name:"❌"},
-    {name:"💀"}
+    const leaderboard =
+        document.getElementById("leaderboard");
 
-];
+    leaderboard.innerHTML = "";
 
-let points = 0;
+    countries
+    .sort((a,b)=>b.score-a.score)
+    .forEach((country,index)=>{
 
-function addPoints(){
+        leaderboard.innerHTML += `
 
-    const money =
-    parseInt(document.getElementById("moneyInput").value);
+        <div class="
+            country-card
+            ${index === 0 ? "top-country" : ""}
+        ">
 
-    const result =
-    document.getElementById("result");
+            ${
+                index === 0
+                ?
+                `<div class="leader">
+                    LEADER
+                </div>`
+                :
+                ""
+            }
 
-    if(!money || money < 1000){
+            <div class="country-left">
 
-        result.innerHTML =
-        "❌ Minimálne 1000€";
+                <div class="rank">
+                    #${index + 1}
+                </div>
 
-        return;
+                <img
+                    class="flag"
+                    src="https://flagcdn.com/w80/${country.code}.png"
+                >
 
-    }
+                <div class="country-name">
+                    ${country.name}
+                </div>
 
-    const addedPoints =
-    Math.floor(money / 1000);
+                ${
+                    index === 0
+                    ?
+                    `<div class="live-dot"></div>`
+                    :
+                    ""
+                }
 
-    points += addedPoints;
+            </div>
 
-    document.getElementById("points").innerHTML =
-    points;
+            <div class="country-right">
 
-    result.innerHTML =
-    `✅ Pridaných ${addedPoints} TOČIEK`;
+                <button class="score">
+                    ${country.score}
+                </button>
 
-    document.getElementById("moneyInput").value = "";
+                <button class="gift">
+                    🏆 ${country.gifts}
+                </button>
 
-}
+            </div>
 
-function randomItem(){
-
-    return spinItems[
-        Math.floor(Math.random()*spinItems.length)
-    ];
-
-}
-
-function weightedReward(){
-
-    let total = 0;
-
-    rewards.forEach(r => total += r.chance);
-
-    let random = Math.random() * total;
-
-    for(let reward of rewards){
-
-        if(random < reward.chance){
-
-            return reward;
-
-        }
-
-        random -= reward.chance;
-
-    }
-
-}
-
-function createItemHTML(item){
-
-    if(item.image){
-
-        return `
-        <div class="item">
-            <img src="${item.image}">
         </div>
         `;
+    });
+}
+
+/* MANUAL ADD */
+
+function manualAdd(){
+
+    const countryName =
+        document.getElementById("countrySelect").value;
+
+    const type =
+        document.getElementById("typeSelect").value;
+
+    const amount =
+        parseInt(
+            document.getElementById("amountInput").value
+        );
+
+    if(!amount || amount <= 0) return;
+
+    const country =
+        countries.find(
+            c => c.name === countryName
+        );
+
+    if(!country) return;
+
+    if(type === "score"){
+
+        country.score += amount;
 
     }else{
 
-        return `
-        <div class="item">
-            ${item.name}
-        </div>
-        `;
+        country.gifts += amount;
 
     }
 
-}
+    renderLeaderboard();
 
-function spinReel(reel,finalReward,duration){
+    /* POSLANIE DO LIVE.JS */
 
-    reel.innerHTML = "";
+    socket.emit("manualUpdate",{
 
-    for(let i=0;i<35;i++){
-
-        reel.innerHTML +=
-        createItemHTML(randomItem());
-
-    }
-
-    reel.innerHTML +=
-    createItemHTML(finalReward);
-
-    let pos = 0;
-
-    const interval = setInterval(()=>{
-
-        pos += 40;
-
-        reel.style.transform =
-        `translateY(-${pos}px)`;
-
-    },20);
-
-    setTimeout(()=>{
-
-        clearInterval(interval);
-
-        reel.style.transform =
-        `translateY(-7000px)`;
-
-    },duration);
-
-}
-
-function spin(){
-
-    const result =
-    document.getElementById("result");
-
-    if(points <= 0){
-
-        result.innerHTML =
-        "❌ NEMÁŠ ŽIADNE TOČKY";
-
-        return;
-
-    }
-
-    points--;
-
-    document.getElementById("points").innerHTML =
-    points;
-
-    const reel1 =
-    document.getElementById("reel1");
-
-    const reel2 =
-    document.getElementById("reel2");
-
-    const reel3 =
-    document.getElementById("reel3");
-
-    result.innerHTML = "";
-
-    document.querySelectorAll(".slot")
-    .forEach(slot=>{
-
-        slot.classList.remove("win");
+        country:countryName,
+        type:type,
+        amount:amount
 
     });
 
-    const won =
-    Math.random() < 0.50;
-
-    let reward1;
-    let reward2;
-    let reward3;
-
-    if(won){
-
-        const finalReward =
-        weightedReward();
-
-        reward1 = finalReward;
-        reward2 = finalReward;
-        reward3 = finalReward;
-
-    }else{
-
-        reward1 = randomItem();
-        reward2 = randomItem();
-        reward3 = randomItem();
-
-        while(
-
-            reward1.name === reward2.name &&
-            reward2.name === reward3.name
-
-        ){
-
-            reward3 = randomItem();
-
-        }
-
-    }
-
-    spinReel(reel1,reward1,2200);
-    spinReel(reel2,reward2,3200);
-    spinReel(reel3,reward3,4200);
-
-    setTimeout(()=>{
-
-        const isWin =
-
-        reward1.name === reward2.name &&
-        reward2.name === reward3.name &&
-
-        reward1.name !== "❌" &&
-        reward1.name !== "💀";
-
-        if(isWin){
-
-            document.querySelectorAll(".slot")
-            .forEach(slot=>{
-
-                slot.classList.add("win");
-
-            });
-
-            result.innerHTML =
-            `🎉 VYHRAL SI: ${reward1.name}`;
-
-        }else{
-
-            result.innerHTML =
-            "😢 Tentokrát nič...";
-
-        }
-
-    },4500);
-
 }
+
+/* ŽIADNE AUTOMATICKÉ PRIDÁVANIE */
+/* odstránené socket.on("gift") */
+
+/* FIRST RENDER */
+
+renderLeaderboard();
 
 </script>
 
