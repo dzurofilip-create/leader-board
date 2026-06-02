@@ -44,7 +44,7 @@ body{
 
 .container{
 
-    width:620px;
+    width:760px;
 }
 
 .title{
@@ -71,7 +71,9 @@ body{
 
     width:100%;
 
-    padding:20px 24px;
+    min-height:96px;
+
+    padding:18px 24px;
 
     margin-bottom:18px;
 
@@ -139,12 +141,16 @@ body{
     align-items:center;
 
     gap:18px;
+
+    width:340px;
+
+    min-width:340px;
 }
 
 .rank{
 
-    width:48px;
-    height:48px;
+    width:50px;
+    height:50px;
 
     border-radius:50%;
 
@@ -166,9 +172,9 @@ body{
 
 .flag{
 
-    width:56px;
+    width:60px;
 
-    height:38px;
+    height:42px;
 
     object-fit:cover;
 
@@ -182,9 +188,17 @@ body{
 
     color:white;
 
-    font-size:28px;
+    font-size:30px;
 
     font-weight:800;
+
+    width:220px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
 
     text-shadow:
         0 0 10px rgba(255,255,255,.15);
@@ -194,15 +208,23 @@ body{
 
     display:flex;
 
-    gap:16px;
+    justify-content:flex-end;
+
+    align-items:center;
+
+    gap:14px;
+
+    min-width:340px;
 }
 
 .score,
 .gift{
 
-    min-width:140px;
+    width:160px;
 
-    height:64px;
+    height:68px;
+
+    flex-shrink:0;
 
     border:none;
 
@@ -210,11 +232,17 @@ body{
 
     color:white;
 
-    font-size:26px;
+    font-size:28px;
 
     font-weight:800;
 
     letter-spacing:.5px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
 
     box-shadow:
         0 0 18px rgba(0,0,0,.35),
@@ -237,7 +265,7 @@ body{
 
 .controls{
 
-    width:360px;
+    width:380px;
 
     padding:28px;
 
@@ -264,7 +292,7 @@ body{
 
     margin-bottom:24px;
 
-    font-size:30px;
+    font-size:32px;
 }
 
 .controls label{
@@ -275,7 +303,7 @@ body{
 
     margin-bottom:10px;
 
-    font-size:16px;
+    font-size:18px;
 
     font-weight:600;
 }
@@ -285,17 +313,17 @@ body{
 
     width:100%;
 
-    height:56px;
+    height:60px;
 
     border:none;
 
     border-radius:16px;
 
-    margin-bottom:20px;
+    margin-bottom:22px;
 
     padding:0 16px;
 
-    font-size:18px;
+    font-size:20px;
 
     background:
         rgba(255,255,255,.08);
@@ -312,7 +340,7 @@ body{
 
     width:100%;
 
-    height:60px;
+    height:64px;
 
     border:none;
 
@@ -320,7 +348,7 @@ body{
 
     color:white;
 
-    font-size:20px;
+    font-size:22px;
 
     font-weight:800;
 
@@ -440,8 +468,6 @@ let countries = [
 
 ];
 
-countries.sort(()=>Math.random()-0.5);
-
 function renderLeaderboard(){
 
     const leaderboard =
@@ -480,13 +506,13 @@ function renderLeaderboard(){
 
             <div class="country-right">
 
-                <button class="score">
+                <div class="score">
                     ${country.score} B
-                </button>
+                </div>
 
-                <button class="gift">
+                <div class="gift">
                     🏆 ${country.gifts}
-                </button>
+                </div>
 
             </div>
 
@@ -545,7 +571,7 @@ function manualAdd(){
 
     if(!amount || amount <= 0) return;
 
-    addPoints({
+    const payload = {
 
         country:countryName,
 
@@ -553,7 +579,11 @@ function manualAdd(){
 
         gifts:type === "gifts" ? amount : 0
 
-    });
+    };
+
+    socket.send(JSON.stringify(payload));
+
+    addPoints(payload);
 
     document.getElementById("amountInput").value = "";
 }
@@ -568,8 +598,6 @@ socket.onmessage = (event)=>{
 
     const data =
         JSON.parse(event.data);
-
-    console.log(data);
 
     addPoints(data);
 
