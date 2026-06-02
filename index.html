@@ -44,32 +44,38 @@ body{
 
 .container{
 
-    width:560px;
+    width:620px;
 }
 
 .title{
 
     color:white;
 
-    font-size:42px;
+    font-size:52px;
+
     font-weight:800;
 
-    margin-bottom:25px;
+    margin-bottom:30px;
+
+    text-shadow:
+        0 0 20px rgba(255,255,255,.15);
 }
 
 .country-card{
 
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
 
     width:100%;
 
-    padding:16px 20px;
+    padding:20px 24px;
 
-    margin-bottom:16px;
+    margin-bottom:18px;
 
-    border-radius:24px;
+    border-radius:28px;
 
     background:
         linear-gradient(
@@ -81,6 +87,9 @@ body{
     border:2px solid rgba(255,255,255,.08);
 
     transition:.3s;
+
+    box-shadow:
+        0 0 25px rgba(0,0,0,.25);
 }
 
 .country-card:hover{
@@ -92,7 +101,9 @@ body{
 
     border:2px solid gold;
 
-    box-shadow:0 0 25px gold;
+    box-shadow:
+        0 0 30px gold,
+        0 0 60px rgba(255,215,0,.25);
 }
 
 .flash-card{
@@ -112,7 +123,7 @@ body{
         transform:scale(1.05);
 
         box-shadow:
-            0 0 40px rgba(0,255,255,.9);
+            0 0 50px rgba(0,255,255,.95);
     }
 
     100%{
@@ -124,15 +135,16 @@ body{
 .country-left{
 
     display:flex;
+
     align-items:center;
 
-    gap:14px;
+    gap:18px;
 }
 
 .rank{
 
-    width:34px;
-    height:34px;
+    width:48px;
+    height:48px;
 
     border-radius:50%;
 
@@ -144,49 +156,69 @@ body{
 
     color:white;
 
-    font-size:13px;
+    font-size:18px;
+
     font-weight:800;
+
+    box-shadow:
+        0 0 18px rgba(91,45,255,.55);
 }
 
 .flag{
 
-    width:42px;
-    height:28px;
+    width:56px;
+
+    height:38px;
 
     object-fit:cover;
 
-    border-radius:6px;
+    border-radius:8px;
+
+    box-shadow:
+        0 0 12px rgba(255,255,255,.15);
 }
 
 .country-name{
 
     color:white;
 
-    font-size:20px;
-    font-weight:700;
+    font-size:28px;
+
+    font-weight:800;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,.15);
 }
 
 .country-right{
 
     display:flex;
 
-    gap:12px;
+    gap:16px;
 }
 
 .score,
 .gift{
 
-    min-width:90px;
-    height:42px;
+    min-width:140px;
+
+    height:64px;
 
     border:none;
 
-    border-radius:12px;
+    border-radius:18px;
 
     color:white;
 
-    font-size:14px;
-    font-weight:700;
+    font-size:26px;
+
+    font-weight:800;
+
+    letter-spacing:.5px;
+
+    box-shadow:
+        0 0 18px rgba(0,0,0,.35),
+        inset 0 0 10px rgba(255,255,255,.08);
 }
 
 .score{
@@ -205,11 +237,11 @@ body{
 
 .controls{
 
-    width:320px;
+    width:360px;
 
-    padding:24px;
+    padding:28px;
 
-    border-radius:24px;
+    border-radius:28px;
 
     background:
         linear-gradient(
@@ -221,13 +253,18 @@ body{
     border:2px solid rgba(255,255,255,.08);
 
     height:fit-content;
+
+    box-shadow:
+        0 0 30px rgba(0,0,0,.25);
 }
 
 .controls h2{
 
     color:white;
 
-    margin-bottom:20px;
+    margin-bottom:24px;
+
+    font-size:30px;
 }
 
 .controls label{
@@ -236,9 +273,11 @@ body{
 
     display:block;
 
-    margin-bottom:8px;
+    margin-bottom:10px;
 
-    font-size:14px;
+    font-size:16px;
+
+    font-weight:600;
 }
 
 .controls select,
@@ -246,17 +285,17 @@ body{
 
     width:100%;
 
-    height:48px;
+    height:56px;
 
     border:none;
 
-    border-radius:14px;
+    border-radius:16px;
 
-    margin-bottom:18px;
+    margin-bottom:20px;
 
-    padding:0 14px;
+    padding:0 16px;
 
-    font-size:15px;
+    font-size:18px;
 
     background:
         rgba(255,255,255,.08);
@@ -273,18 +312,21 @@ body{
 
     width:100%;
 
-    height:52px;
+    height:60px;
 
     border:none;
 
-    border-radius:14px;
+    border-radius:18px;
 
     color:white;
 
-    font-size:16px;
-    font-weight:700;
+    font-size:20px;
+
+    font-weight:800;
 
     cursor:pointer;
+
+    transition:.25s;
 
     background:
         linear-gradient(
@@ -292,6 +334,17 @@ body{
             #00c6ff,
             #0072ff
         );
+
+    box-shadow:
+        0 0 25px rgba(0,114,255,.35);
+}
+
+.manual-btn:hover{
+
+    transform:scale(1.03);
+
+    box-shadow:
+        0 0 35px rgba(0,180,255,.75);
 }
 
 </style>
@@ -324,14 +377,14 @@ body{
 
 <option value="Slovensko">🇸🇰 Slovensko</option>
 <option value="Nemecko">🇩🇪 Nemecko</option>
-<option value="Rakúsko">🇦🇹 Rakusko</option>
-<option value="Česko">🇨🇿 Cesko</option>
-<option value="Maďarsko">🇭🇺 Madarsko</option>
-<option value="Chorvátsko">🇭🇷 Chorvatsko</option>
-<option value="Poľsko">🇵🇱 Polsko</option>
+<option value="Rakúsko">🇦🇹 Rakúsko</option>
+<option value="Česko">🇨🇿 Česko</option>
+<option value="Maďarsko">🇭🇺 Maďarsko</option>
+<option value="Chorvátsko">🇭🇷 Chorvátsko</option>
+<option value="Poľsko">🇵🇱 Poľsko</option>
 <option value="Ukrajina">🇺🇦 Ukrajina</option>
 <option value="Srbsko">🇷🇸 Srbsko</option>
-<option value="Albánsko">🇦🇱 Albansko</option>
+<option value="Albánsko">🇦🇱 Albánsko</option>
 
 </select>
 
@@ -452,9 +505,17 @@ function addPoints(data){
 
     if(!country) return;
 
-    country.score += data.points || 0;
+    if(data.points){
 
-    country.gifts += data.gifts || 0;
+        country.score += data.points;
+
+    }
+
+    if(data.gifts){
+
+        country.gifts += data.gifts;
+
+    }
 
     country.flash = true;
 
@@ -487,7 +548,9 @@ function manualAdd(){
     addPoints({
 
         country:countryName,
+
         points:type === "score" ? amount : 0,
+
         gifts:type === "gifts" ? amount : 0
 
     });
