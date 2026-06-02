@@ -1,120 +1,393 @@
-<script>
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LIVE SÚBOJ KRAJÍN</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:
+        radial-gradient(circle at top left,#13294b,#081120 70%);
+
+    min-height:100vh;
+
+    padding:20px;
+
+    overflow:hidden;
+}
+
+.wrapper{
+
+    display:flex;
+
+    gap:30px;
+}
 
 /* ========================= */
-/* WEBSOCKET */
+/* LEADERBOARD */
 /* ========================= */
 
-const socket =
-    new WebSocket("ws://localhost:3000");
+.container{
 
-/* ========================= */
-/* RANDOM ORDER */
-/* ========================= */
+    width:560px;
+}
 
-function shuffle(array){
+.title{
 
-    for(let i = array.length - 1; i > 0; i--){
+    color:white;
 
-        const j = Math.floor(Math.random() * (i + 1));
+    font-size:42px;
+    font-weight:800;
 
-        [array[i], array[j]] =
-        [array[j], array[i]];
+    margin-bottom:25px;
+}
+
+.country-card{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    width:100%;
+
+    padding:16px 20px;
+
+    margin-bottom:16px;
+
+    border-radius:24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(35,58,90,.96),
+            rgba(12,18,28,.96)
+        );
+
+    border:2px solid rgba(255,255,255,.08);
+
+    transition:.3s;
+}
+
+.country-card:hover{
+
+    transform:scale(1.02);
+}
+
+.top-country{
+
+    border:2px solid gold;
+
+    box-shadow:0 0 25px gold;
+}
+
+.flash-card{
+
+    animation:flashAnim 1s ease;
+}
+
+@keyframes flashAnim{
+
+    0%{
+
+        transform:scale(1);
     }
 
-    return array;
+    50%{
+
+        transform:scale(1.05);
+
+        box-shadow:
+            0 0 40px rgba(0,255,255,.9);
+    }
+
+    100%{
+
+        transform:scale(1);
+    }
+}
+
+.country-left{
+
+    display:flex;
+    align-items:center;
+
+    gap:14px;
+}
+
+.rank{
+
+    width:34px;
+    height:34px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#5b2dff;
+
+    color:white;
+
+    font-size:13px;
+    font-weight:800;
+}
+
+.flag{
+
+    width:42px;
+    height:28px;
+
+    object-fit:cover;
+
+    border-radius:6px;
+}
+
+.country-name{
+
+    color:white;
+
+    font-size:20px;
+    font-weight:700;
+}
+
+.country-right{
+
+    display:flex;
+
+    gap:12px;
+}
+
+.score,
+.gift{
+
+    min-width:90px;
+    height:42px;
+
+    border:none;
+
+    border-radius:12px;
+
+    color:white;
+
+    font-size:14px;
+    font-weight:700;
+}
+
+.score{
+
+    background:#1d3557;
+}
+
+.gift{
+
+    background:#ff8800;
 }
 
 /* ========================= */
-/* COUNTRIES */
+/* PANEL */
 /* ========================= */
 
-let countries = shuffle([
+.controls{
 
-{
-    name:"Slovensko",
-    code:"sk",
-    score:0,
-    gifts:0,
-    flash:false
-},
+    width:320px;
 
-{
-    name:"Nemecko",
-    code:"de",
-    score:0,
-    gifts:0,
-    flash:false
-},
+    padding:24px;
 
-{
-    name:"Rakúsko",
-    code:"at",
-    score:0,
-    gifts:0,
-    flash:false
-},
+    border-radius:24px;
 
-{
-    name:"Česko",
-    code:"cz",
-    score:0,
-    gifts:0,
-    flash:false
-},
+    background:
+        linear-gradient(
+            135deg,
+            rgba(25,35,55,.96),
+            rgba(10,15,25,.96)
+        );
 
-{
-    name:"Maďarsko",
-    code:"hu",
-    score:0,
-    gifts:0,
-    flash:false
-},
+    border:2px solid rgba(255,255,255,.08);
 
-{
-    name:"Chorvátsko",
-    code:"hr",
-    score:0,
-    gifts:0,
-    flash:false
-},
-
-{
-    name:"Poľsko",
-    code:"pl",
-    score:0,
-    gifts:0,
-    flash:false
-},
-
-{
-    name:"Ukrajina",
-    code:"ua",
-    score:0,
-    gifts:0,
-    flash:false
-},
-
-{
-    name:"Srbsko",
-    code:"rs",
-    score:0,
-    gifts:0,
-    flash:false
-},
-
-{
-    name:"Albánsko",
-    code:"al",
-    score:0,
-    gifts:0,
-    flash:false
+    height:fit-content;
 }
 
-]);
+.controls h2{
 
-/* ========================= */
-/* RENDER */
-/* ========================= */
+    color:white;
+
+    margin-bottom:20px;
+}
+
+.controls label{
+
+    color:white;
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-size:14px;
+}
+
+.controls select,
+.controls input{
+
+    width:100%;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:14px;
+
+    margin-bottom:18px;
+
+    padding:0 14px;
+
+    font-size:15px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    color:white;
+}
+
+.controls option{
+
+    color:black;
+}
+
+.manual-btn{
+
+    width:100%;
+
+    height:52px;
+
+    border:none;
+
+    border-radius:14px;
+
+    color:white;
+
+    font-size:16px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00c6ff,
+            #0072ff
+        );
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<div class="container">
+
+<div class="title">
+🌍 LIVE SÚBOJ KRAJÍN
+</div>
+
+<div id="leaderboard"></div>
+
+</div>
+
+<div class="controls">
+
+<h2>
+🎮 Ovládací panel
+</h2>
+
+<label>Krajina</label>
+
+<select id="countrySelect">
+
+<option value="Slovensko">🇸🇰 Slovensko</option>
+<option value="Nemecko">🇩🇪 Nemecko</option>
+<option value="Rakúsko">🇦🇹 Rakúsko</option>
+<option value="Česko">🇨🇿 Česko</option>
+<option value="Maďarsko">🇭🇺 Maďarsko</option>
+<option value="Chorvátsko">🇭🇷 Chorvátsko</option>
+<option value="Poľsko">🇵🇱 Poľsko</option>
+<option value="Ukrajina">🇺🇦 Ukrajina</option>
+<option value="Srbsko">🇷🇸 Srbsko</option>
+<option value="Albánsko">🇦🇱 Albánsko</option>
+
+</select>
+
+<label>Typ</label>
+
+<select id="typeSelect">
+
+<option value="score">
+Body
+</option>
+
+<option value="gifts">
+Tituly
+</option>
+
+</select>
+
+<label>Koľko pridať</label>
+
+<input
+    type="number"
+    id="amountInput"
+    placeholder="Napr. 500"
+/>
+
+<button
+    class="manual-btn"
+    onclick="manualAdd()"
+>
+➕ Pridať
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+const socket = new WebSocket("ws://localhost:3000");
+
+let countries = [
+
+{ name:"Slovensko", code:"sk", score:0, gifts:0, flash:false },
+{ name:"Nemecko", code:"de", score:0, gifts:0, flash:false },
+{ name:"Rakúsko", code:"at", score:0, gifts:0, flash:false },
+{ name:"Česko", code:"cz", score:0, gifts:0, flash:false },
+{ name:"Maďarsko", code:"hu", score:0, gifts:0, flash:false },
+{ name:"Chorvátsko", code:"hr", score:0, gifts:0, flash:false },
+{ name:"Poľsko", code:"pl", score:0, gifts:0, flash:false },
+{ name:"Ukrajina", code:"ua", score:0, gifts:0, flash:false },
+{ name:"Srbsko", code:"rs", score:0, gifts:0, flash:false },
+{ name:"Albánsko", code:"al", score:0, gifts:0, flash:false }
+
+];
+
+countries.sort(()=>Math.random()-0.5);
 
 function renderLeaderboard(){
 
@@ -123,18 +396,9 @@ function renderLeaderboard(){
 
     leaderboard.innerHTML = "";
 
-    countries.sort((a,b)=>{
-
-        if(b.score === a.score){
-
-            return b.gifts - a.gifts;
-        }
-
-        return b.score - a.score;
-
-    });
-
-    countries.forEach((country,index)=>{
+    countries
+    .sort((a,b)=>b.score-a.score)
+    .forEach((country,index)=>{
 
         leaderboard.innerHTML += `
 
@@ -143,18 +407,6 @@ function renderLeaderboard(){
             ${index === 0 ? "top-country" : ""}
             ${country.flash ? "flash-card" : ""}
         ">
-
-            ${
-                index === 0
-                ?
-                `
-                <div class="leader">
-                    LEADER
-                </div>
-                `
-                :
-                ""
-            }
 
             <div class="country-left">
 
@@ -171,14 +423,6 @@ function renderLeaderboard(){
                     ${country.name}
                 </div>
 
-                ${
-                    index === 0
-                    ?
-                    `<div class="live-dot"></div>`
-                    :
-                    ""
-                }
-
             </div>
 
             <div class="country-right">
@@ -193,26 +437,37 @@ function renderLeaderboard(){
 
             </div>
 
-            ${
-                country.flash
-                ?
-                `
-                <div class="points-popup">
-                    +${country.lastPoints || 0}
-                </div>
-                `
-                :
-                ""
-            }
-
         </div>
+
         `;
     });
 }
 
-/* ========================= */
-/* MANUAL ADD */
-/* ========================= */
+function addPoints(data){
+
+    const country =
+        countries.find(
+            c => c.name === data.country
+        );
+
+    if(!country) return;
+
+    country.score += data.points || 0;
+
+    country.gifts += data.gifts || 1;
+
+    country.flash = true;
+
+    renderLeaderboard();
+
+    setTimeout(()=>{
+
+        country.flash = false;
+
+        renderLeaderboard();
+
+    },1000);
+}
 
 function manualAdd(){
 
@@ -237,122 +492,35 @@ function manualAdd(){
 
     });
 
+    document.getElementById("amountInput").value = "";
 }
 
-/* ========================= */
-/* ADD POINTS */
-/* ========================= */
+socket.onopen = ()=>{
 
-function addPoints(data){
+    console.log("Connected to live.js");
 
-    const country =
-        countries.find(
-            c => c.name === data.country
-        );
+};
 
-    if(!country){
-
-        console.log(
-            "COUNTRY NOT FOUND:",
-            data.country
-        );
-
-        return;
-    }
-
-    const oldLeader =
-        [...countries]
-        .sort((a,b)=>b.score-a.score)[0]?.name;
-
-    country.score += data.points || 0;
-
-    country.gifts += data.gifts || 1;
-
-    country.lastPoints =
-        data.points || 0;
-
-    country.flash = true;
-
-    renderLeaderboard();
-
-    const newLeader =
-        [...countries]
-        .sort((a,b)=>b.score-a.score)[0]?.name;
-
-    /* PREDBEHNUTIE */
-
-    if(oldLeader !== newLeader){
-
-        const card =
-            document.querySelector(".top-country");
-
-        if(card){
-
-            card.classList.add("overtake");
-
-            setTimeout(()=>{
-
-                card.classList.remove("overtake");
-
-            },1200);
-        }
-    }
-
-    /* RESET FLASH */
-
-    setTimeout(()=>{
-
-        country.flash = false;
-
-        renderLeaderboard();
-
-    },1200);
-
-}
-
-/* ========================= */
-/* WEBSOCKET MESSAGE */
-/* ========================= */
-
-socket.onmessage = (event) => {
+socket.onmessage = (event)=>{
 
     const data =
         JSON.parse(event.data);
 
-    console.log(
-        "LIVE:",
-        data
-    );
+    console.log(data);
 
     addPoints(data);
 
 };
 
-/* ========================= */
-/* SOCKET STATUS */
-/* ========================= */
+socket.onerror = (err)=>{
 
-socket.onopen = () => {
-
-    console.log(
-        "Connected to live.js"
-    );
+    console.log(err);
 
 };
-
-socket.onerror = (err) => {
-
-    console.log(
-        "WebSocket Error:",
-        err
-    );
-
-};
-
-/* ========================= */
-/* FIRST RENDER */
-/* ========================= */
 
 renderLeaderboard();
 
 </script>
+
+</body>
+</html>
