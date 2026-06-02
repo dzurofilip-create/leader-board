@@ -1,609 +1,12 @@
-<!DOCTYPE html>
-<html lang="sk">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>LIVE SÚBOJ KRAJÍN</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-
-    font-family:'Poppins',sans-serif;
-
-    background:
-        radial-gradient(circle at top left,#13294b,#081120 70%);
-
-    min-height:100vh;
-
-    padding:20px;
-
-    overflow:hidden;
-}
-
-body::before{
-
-    content:"";
-
-    position:fixed;
-    inset:0;
-
-    background-image:
-        radial-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
-
-    background-size:32px 32px;
-
-    animation:bgMove 14s linear infinite;
-
-    pointer-events:none;
-}
-
-@keyframes bgMove{
-
-    from{
-        transform:translateY(0px);
-    }
-
-    to{
-        transform:translateY(32px);
-    }
-}
-
-.wrapper{
-
-    display:flex;
-
-    gap:30px;
-}
-
-/* ========================= */
-/* LEADERBOARD */
-/* ========================= */
-
-.container{
-
-    width:560px;
-}
-
-.title{
-
-    color:white;
-
-    font-size:42px;
-    font-weight:800;
-
-    margin-bottom:25px;
-
-    text-shadow:
-        0 0 20px rgba(0,255,255,.35);
-}
-
-.country-card{
-
-    position:relative;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    width:100%;
-
-    padding:16px 20px;
-
-    margin-bottom:16px;
-
-    border-radius:24px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(35,58,90,.96),
-            rgba(12,18,28,.96)
-        );
-
-    border:2px solid rgba(255,255,255,.08);
-
-    box-shadow:
-        0 0 18px rgba(0,170,255,.15);
-
-    transition:
-        transform .5s,
-        box-shadow .5s;
-}
-
-.country-card:hover{
-
-    transform:
-        translateY(-4px)
-        scale(1.02);
-}
-
-.top-country{
-
-    border:2px solid gold;
-
-    animation:pulse 1.5s infinite;
-}
-
-@keyframes pulse{
-
-    0%{
-        box-shadow:0 0 10px gold;
-    }
-
-    50%{
-        box-shadow:0 0 30px gold;
-    }
-
-    100%{
-        box-shadow:0 0 10px gold;
-    }
-}
-
-.leader{
-
-    position:absolute;
-
-    top:-10px;
-    right:18px;
-
-    background:gold;
-
-    color:black;
-
-    font-size:11px;
-    font-weight:800;
-
-    padding:5px 12px;
-
-    border-radius:999px;
-}
-
-.country-left{
-
-    display:flex;
-    align-items:center;
-
-    gap:14px;
-}
-
-.rank{
-
-    width:34px;
-    height:34px;
-
-    border-radius:50%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ff00cc,
-            #5b2dff
-        );
-
-    color:white;
-
-    font-size:13px;
-    font-weight:800;
-}
-
-.flag{
-
-    width:42px;
-    height:28px;
-
-    object-fit:cover;
-
-    border-radius:6px;
-}
-
-.country-name{
-
-    color:white;
-
-    font-size:20px;
-    font-weight:700;
-}
-
-.live-dot{
-
-    width:10px;
-    height:10px;
-
-    border-radius:50%;
-
-    background:#00ff66;
-
-    box-shadow:
-        0 0 12px #00ff66;
-
-    animation:livePulse 1s infinite;
-}
-
-@keyframes livePulse{
-
-    0%{
-        transform:scale(1);
-    }
-
-    50%{
-        transform:scale(1.5);
-    }
-
-    100%{
-        transform:scale(1);
-    }
-}
-
-.country-right{
-
-    display:flex;
-
-    gap:18px;
-}
-
-.score,
-.gift{
-
-    min-width:100px;
-    height:44px;
-
-    border:none;
-
-    border-radius:14px;
-
-    color:white;
-
-    font-size:15px;
-    font-weight:700;
-}
-
-.score{
-
-    background:
-        rgba(255,255,255,.08);
-}
-
-.gift{
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffcc00,
-            #ff8800
-        );
-}
-
-/* ========================= */
-/* CONTROL PANEL */
-/* ========================= */
-
-.controls{
-
-    width:320px;
-
-    padding:24px;
-
-    border-radius:24px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(25,35,55,.96),
-            rgba(10,15,25,.96)
-        );
-
-    border:2px solid rgba(255,255,255,.08);
-
-    height:fit-content;
-}
-
-.controls h2{
-
-    color:white;
-
-    margin-bottom:20px;
-}
-
-.controls label{
-
-    color:white;
-
-    display:block;
-
-    margin-bottom:8px;
-
-    font-size:14px;
-}
-
-.controls select,
-.controls input{
-
-    width:100%;
-
-    height:48px;
-
-    border:none;
-
-    border-radius:14px;
-
-    margin-bottom:18px;
-
-    padding:0 14px;
-
-    font-size:15px;
-
-    background:
-        rgba(255,255,255,.08);
-
-    color:white;
-}
-
-.controls option{
-
-    color:black;
-}
-
-.manual-btn{
-
-    width:100%;
-
-    height:52px;
-
-    border:none;
-
-    border-radius:14px;
-
-    color:white;
-
-    font-size:16px;
-    font-weight:700;
-
-    cursor:pointer;
-
-    background:
-        linear-gradient(
-            135deg,
-            #00c6ff,
-            #0072ff
-        );
-
-    transition:.3s;
-}
-
-.manual-btn:hover{
-
-    transform:scale(1.03);
-}
-
-/* ========================= */
-/* FLASH BODY */
-/* ========================= */
-
-.flash-card{
-
-    animation:flashAnim 1s ease;
-}
-
-@keyframes flashAnim{
-
-    0%{
-
-        transform:scale(1);
-
-        box-shadow:
-            0 0 0px rgba(0,255,255,0);
-    }
-
-    50%{
-
-        transform:scale(1.06);
-
-        box-shadow:
-            0 0 40px rgba(0,255,255,.9);
-    }
-
-    100%{
-
-        transform:scale(1);
-
-        box-shadow:
-            0 0 0px rgba(0,255,255,0);
-    }
-}
-
-/* ========================= */
-/* PREDBEHNUTIE */
-/* ========================= */
-
-.overtake{
-
-    animation:overtakeAnim 1.2s ease;
-}
-
-@keyframes overtakeAnim{
-
-    0%{
-
-        transform:scale(1);
-    }
-
-    25%{
-
-        transform:
-            scale(1.08)
-            translateX(12px);
-    }
-
-    50%{
-
-        transform:
-            scale(1.12)
-            translateX(-12px);
-    }
-
-    100%{
-
-        transform:scale(1);
-    }
-}
-
-/* ========================= */
-/* POINTS POPUP */
-/* ========================= */
-
-.points-popup{
-
-    position:absolute;
-
-    top:-12px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    background:
-        linear-gradient(
-            135deg,
-            #00e5ff,
-            #00ff99
-        );
-
-    color:white;
-
-    font-size:14px;
-    font-weight:800;
-
-    padding:8px 16px;
-
-    border-radius:999px;
-
-    animation:popupAnim 1.2s ease forwards;
-
-    pointer-events:none;
-}
-
-@keyframes popupAnim{
-
-    0%{
-
-        opacity:0;
-
-        transform:
-            translateX(-50%)
-            translateY(20px)
-            scale(.6);
-    }
-
-    40%{
-
-        opacity:1;
-
-        transform:
-            translateX(-50%)
-            translateY(-12px)
-            scale(1.1);
-    }
-
-    100%{
-
-        opacity:0;
-
-        transform:
-            translateX(-50%)
-            translateY(-45px)
-            scale(1);
-    }
-}
-
-</style>
-</head>
-
-<body>
-
-<div class="wrapper">
-
-<div class="container">
-
-<div class="title">
-🌍 LIVE SÚBOJ KRAJÍN
-</div>
-
-<div id="leaderboard"></div>
-
-</div>
-
-<!-- PANEL -->
-
-<div class="controls">
-
-<h2>
-🎮 Ovládací panel
-</h2>
-
-<label>Krajina</label>
-
-<select id="countrySelect">
-
-<option value="Slovensko">🇸🇰 Slovensko</option>
-<option value="Nemecko">🇩🇪 Nemecko</option>
-<option value="Rakúsko">🇦🇹 Rakúsko</option>
-<option value="Česko">🇨🇿 Česko</option>
-<option value="Maďarsko">🇭🇺 Maďarsko</option>
-<option value="Chorvátsko">🇭🇷 Chorvátsko</option>
-<option value="Poľsko">🇵🇱 Poľsko</option>
-<option value="Ukrajina">🇺🇦 Ukrajina</option>
-<option value="Srbsko">🇷🇸 Srbsko</option>
-<option value="Albánsko">🇦🇱 Albánsko</option>
-
-</select>
-
-<label>Typ</label>
-
-<select id="typeSelect">
-
-<option value="score">
-Body
-</option>
-
-<option value="gifts">
-Tituly
-</option>
-
-</select>
-
-<label>Koľko pridať</label>
-
-<input
-    type="number"
-    id="amountInput"
-    placeholder="Napr. 500"
-/>
-
-<button
-    class="manual-btn"
-    onclick="manualAdd()"
->
-➕ Pridať
-</button>
-
-</div>
-
-</div>
+<script src="/socket.io/socket.io.js"></script>
 
 <script>
+
+/* ========================= */
+/* SOCKET */
+/* ========================= */
+
+const socket = io();
 
 /* ========================= */
 /* RANDOM ORDER */
@@ -796,7 +199,7 @@ function renderLeaderboard(){
                 ?
                 `
                 <div class="points-popup">
-                    + BODY
+                    +${country.lastPoints || 0}
                 </div>
                 `
                 :
@@ -827,26 +230,50 @@ function manualAdd(){
 
     if(!amount || amount <= 0) return;
 
+    addLivePoints({
+
+        country:countryName,
+        points:type === "score" ? amount : 0,
+        gifts:type === "gifts" ? amount : 0
+
+    });
+
+    document.getElementById("amountInput").value = "";
+}
+
+/* ========================= */
+/* LIVE ADD */
+/* ========================= */
+
+function addLivePoints(data){
+
+    console.log("LIVE:", data);
+
     const oldLeader =
         [...countries]
         .sort((a,b)=>b.score-a.score)[0]?.name;
 
     const country =
         countries.find(
-            c => c.name === countryName
+            c => c.name === data.country
         );
 
-    if(!country) return;
+    if(!country){
 
-    if(type === "score"){
+        console.log(
+            "COUNTRY NOT FOUND:",
+            data.country
+        );
 
-        country.score += amount;
-
-    }else{
-
-        country.gifts += amount;
-
+        return;
     }
+
+    country.score += data.points || 0;
+
+    country.gifts += data.gifts || 0;
+
+    country.lastPoints =
+        data.points || 0;
 
     country.flash = true;
 
@@ -884,9 +311,17 @@ function manualAdd(){
         renderLeaderboard();
 
     },1200);
-
-    document.getElementById("amountInput").value = "";
 }
+
+/* ========================= */
+/* SOCKET EVENT */
+/* ========================= */
+
+socket.on("gift",(data)=>{
+
+    addLivePoints(data);
+
+});
 
 /* ========================= */
 /* FIRST RENDER */
@@ -895,6 +330,3 @@ function manualAdd(){
 renderLeaderboard();
 
 </script>
-
-</body>
-</html>
