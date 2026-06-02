@@ -8,8 +8,6 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-<script src="/socket.io/socket.io.js"></script>
-
 <style>
 
 *{
@@ -19,6 +17,7 @@
 }
 
 body{
+
     font-family:'Poppins',sans-serif;
 
     background:
@@ -62,10 +61,18 @@ body::before{
 .wrapper{
 
     display:flex;
+
     gap:30px;
 }
 
-/* TITLE */
+/* ========================= */
+/* LEADERBOARD */
+/* ========================= */
+
+.container{
+
+    width:560px;
+}
 
 .title{
 
@@ -79,14 +86,6 @@ body::before{
     text-shadow:
         0 0 20px rgba(0,255,255,.35);
 }
-
-/* LEADERBOARD */
-
-.container{
-    width:520px;
-}
-
-/* CARD */
 
 .country-card{
 
@@ -116,7 +115,9 @@ body::before{
     box-shadow:
         0 0 18px rgba(0,170,255,.15);
 
-    transition:.35s;
+    transition:
+        transform .5s,
+        box-shadow .5s;
 }
 
 .country-card:hover{
@@ -250,13 +251,14 @@ body::before{
 .country-right{
 
     display:flex;
+
     gap:18px;
 }
 
 .score,
 .gift{
 
-    min-width:90px;
+    min-width:100px;
     height:44px;
 
     border:none;
@@ -285,7 +287,9 @@ body::before{
         );
 }
 
+/* ========================= */
 /* CONTROL PANEL */
+/* ========================= */
 
 .controls{
 
@@ -318,11 +322,11 @@ body::before{
 
     color:white;
 
-    font-size:14px;
-
     display:block;
 
     margin-bottom:8px;
+
+    font-size:14px;
 }
 
 .controls select,
@@ -342,12 +346,14 @@ body::before{
 
     font-size:15px;
 
-    background:rgba(255,255,255,.08);
+    background:
+        rgba(255,255,255,.08);
 
     color:white;
 }
 
 .controls option{
+
     color:black;
 }
 
@@ -383,6 +389,145 @@ body::before{
     transform:scale(1.03);
 }
 
+/* ========================= */
+/* FLASH BODY */
+/* ========================= */
+
+.flash-card{
+
+    animation:flashAnim 1s ease;
+}
+
+@keyframes flashAnim{
+
+    0%{
+
+        transform:scale(1);
+
+        box-shadow:
+            0 0 0px rgba(0,255,255,0);
+    }
+
+    50%{
+
+        transform:scale(1.06);
+
+        box-shadow:
+            0 0 40px rgba(0,255,255,.9);
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        box-shadow:
+            0 0 0px rgba(0,255,255,0);
+    }
+}
+
+/* ========================= */
+/* PREDBEHNUTIE */
+/* ========================= */
+
+.overtake{
+
+    animation:overtakeAnim 1.2s ease;
+}
+
+@keyframes overtakeAnim{
+
+    0%{
+
+        transform:scale(1);
+    }
+
+    25%{
+
+        transform:
+            scale(1.08)
+            translateX(12px);
+    }
+
+    50%{
+
+        transform:
+            scale(1.12)
+            translateX(-12px);
+    }
+
+    100%{
+
+        transform:scale(1);
+    }
+}
+
+/* ========================= */
+/* POINTS POPUP */
+/* ========================= */
+
+.points-popup{
+
+    position:absolute;
+
+    top:-12px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    background:
+        linear-gradient(
+            135deg,
+            #00e5ff,
+            #00ff99
+        );
+
+    color:white;
+
+    font-size:14px;
+    font-weight:800;
+
+    padding:8px 16px;
+
+    border-radius:999px;
+
+    animation:popupAnim 1.2s ease forwards;
+
+    pointer-events:none;
+}
+
+@keyframes popupAnim{
+
+    0%{
+
+        opacity:0;
+
+        transform:
+            translateX(-50%)
+            translateY(20px)
+            scale(.6);
+    }
+
+    40%{
+
+        opacity:1;
+
+        transform:
+            translateX(-50%)
+            translateY(-12px)
+            scale(1.1);
+    }
+
+    100%{
+
+        opacity:0;
+
+        transform:
+            translateX(-50%)
+            translateY(-45px)
+            scale(1);
+    }
+}
+
 </style>
 </head>
 
@@ -400,11 +545,13 @@ body::before{
 
 </div>
 
-<!-- CONTROL PANEL -->
+<!-- PANEL -->
 
 <div class="controls">
 
-<h2>🎮 Ovládací panel</h2>
+<h2>
+🎮 Ovládací panel
+</h2>
 
 <label>Krajina</label>
 
@@ -427,8 +574,13 @@ body::before{
 
 <select id="typeSelect">
 
-<option value="score">Body</option>
-<option value="gifts">Tituly</option>
+<option value="score">
+Body
+</option>
+
+<option value="gifts">
+Tituly
+</option>
 
 </select>
 
@@ -453,87 +605,114 @@ body::before{
 
 <script>
 
-/* SOCKET */
+/* ========================= */
+/* RANDOM ORDER */
+/* ========================= */
 
-const socket = io();
+function shuffle(array){
 
+    for(let i = array.length - 1; i > 0; i--){
+
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [array[i], array[j]] =
+        [array[j], array[i]];
+    }
+
+    return array;
+}
+
+/* ========================= */
 /* COUNTRIES */
+/* ========================= */
 
-const countries = [
+let countries = shuffle([
 
 {
     name:"Slovensko",
     code:"sk",
     score:0,
-    gifts:0
+    gifts:0,
+    flash:false
 },
 
 {
     name:"Nemecko",
     code:"de",
     score:0,
-    gifts:0
+    gifts:0,
+    flash:false
 },
 
 {
     name:"Rakúsko",
     code:"at",
     score:0,
-    gifts:0
+    gifts:0,
+    flash:false
 },
 
 {
     name:"Česko",
     code:"cz",
     score:0,
-    gifts:0
+    gifts:0,
+    flash:false
 },
 
 {
     name:"Maďarsko",
     code:"hu",
     score:0,
-    gifts:0
+    gifts:0,
+    flash:false
 },
 
 {
     name:"Chorvátsko",
     code:"hr",
     score:0,
-    gifts:0
+    gifts:0,
+    flash:false
 },
 
 {
     name:"Poľsko",
     code:"pl",
     score:0,
-    gifts:0
+    gifts:0,
+    flash:false
 },
 
 {
     name:"Ukrajina",
     code:"ua",
     score:0,
-    gifts:0
+    gifts:0,
+    flash:false
 },
 
 {
     name:"Srbsko",
     code:"rs",
     score:0,
-    gifts:0
+    gifts:0,
+    flash:false
 },
 
 {
     name:"Albánsko",
     code:"al",
     score:0,
-    gifts:0
+    gifts:0,
+    flash:false
 }
 
-];
+]);
 
+/* ========================= */
 /* RENDER */
+/* ========================= */
 
 function renderLeaderboard(){
 
@@ -542,23 +721,35 @@ function renderLeaderboard(){
 
     leaderboard.innerHTML = "";
 
-    countries
-    .sort((a,b)=>b.score-a.score)
-    .forEach((country,index)=>{
+    countries.sort((a,b)=>{
+
+        if(b.score === a.score){
+
+            return b.gifts - a.gifts;
+        }
+
+        return b.score - a.score;
+
+    });
+
+    countries.forEach((country,index)=>{
 
         leaderboard.innerHTML += `
 
         <div class="
             country-card
             ${index === 0 ? "top-country" : ""}
+            ${country.flash ? "flash-card" : ""}
         ">
 
             ${
                 index === 0
                 ?
-                `<div class="leader">
+                `
+                <div class="leader">
                     LEADER
-                </div>`
+                </div>
+                `
                 :
                 ""
             }
@@ -591,7 +782,7 @@ function renderLeaderboard(){
             <div class="country-right">
 
                 <button class="score">
-                    ${country.score}
+                    ${country.score} B
                 </button>
 
                 <button class="gift">
@@ -600,12 +791,26 @@ function renderLeaderboard(){
 
             </div>
 
+            ${
+                country.flash
+                ?
+                `
+                <div class="points-popup">
+                    + BODY
+                </div>
+                `
+                :
+                ""
+            }
+
         </div>
         `;
     });
 }
 
+/* ========================= */
 /* MANUAL ADD */
+/* ========================= */
 
 function manualAdd(){
 
@@ -621,6 +826,10 @@ function manualAdd(){
         );
 
     if(!amount || amount <= 0) return;
+
+    const oldLeader =
+        [...countries]
+        .sort((a,b)=>b.score-a.score)[0]?.name;
 
     const country =
         countries.find(
@@ -639,24 +848,49 @@ function manualAdd(){
 
     }
 
+    country.flash = true;
+
     renderLeaderboard();
 
-    /* POSLANIE DO LIVE.JS */
+    const newLeader =
+        [...countries]
+        .sort((a,b)=>b.score-a.score)[0]?.name;
 
-    socket.emit("manualUpdate",{
+    /* PREDBEHNUTIE */
 
-        country:countryName,
-        type:type,
-        amount:amount
+    if(oldLeader !== newLeader){
 
-    });
+        const card =
+            document.querySelector(".top-country");
 
+        if(card){
+
+            card.classList.add("overtake");
+
+            setTimeout(()=>{
+
+                card.classList.remove("overtake");
+
+            },1200);
+        }
+    }
+
+    /* RESET FLASH */
+
+    setTimeout(()=>{
+
+        country.flash = false;
+
+        renderLeaderboard();
+
+    },1200);
+
+    document.getElementById("amountInput").value = "";
 }
 
-/* ŽIADNE AUTOMATICKÉ PRIDÁVANIE */
-/* odstránené socket.on("gift") */
-
+/* ========================= */
 /* FIRST RENDER */
+/* ========================= */
 
 renderLeaderboard();
 
