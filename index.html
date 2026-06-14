@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIVE SÚBOJ KRAJÍN</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Oswald:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Oswald:wght@600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -19,6 +19,7 @@
             padding: 10px;
             overflow: hidden;
             color: white;
+            position: relative;
         }
 
         .wrapper {
@@ -29,34 +30,40 @@
         }
 
         /* ========================= */
-        /* LEADERBOARD */
+        /* LEADERBOARD (TIKTOK ULTRA COMPACT) */
         /* ========================= */
         .container {
-            width: 310px; /* Zmenšená šírka celej tabuľky */
+            width: 230px; 
+        }
+
+        #leaderboard {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background: rgba(0, 0, 0, 0.55); 
+            backdrop-filter: blur(4px); 
+            padding: 6px;
+            border-radius: 6px;
+            box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.7);
         }
 
         .title {
             font-family: 'Oswald', sans-serif;
-            font-size: 26px; /* Mierne zmenšený nadpis */
+            font-size: 16px; 
             font-weight: 800;
-            margin-bottom: 12px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             color: #ffffff;
-            text-shadow: 2px 2px 0px #000, -2px -2px 0px #000, 2px -2px 0px #000, -2px 2px 0px #000, 0px 4px 10px rgba(0,0,0,0.8);
+            text-align: center;
+            margin-bottom: 6px; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding-bottom: 4px;
+            text-shadow: 1px 1px 2px #000;
         }
 
-        /* Kontajner s pridaným čiernym tieňom okolo celej tabuľky */
-        #leaderboard {
-            display: flex;
-            flex-direction: column;
-            gap: 4px; /* Menšia medzera medzi štátmi */
+        .countries-holder {
             position: relative;
-            background: rgba(0, 0, 0, 0.15);
-            padding: 4px;
-            border-radius: 10px;
-            /* Jemný čierny tieň okolo celej tabuľky */
-            box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(0, 0, 0, 0.3);
+            width: 100%;
         }
 
         .country-card {
@@ -64,19 +71,15 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            height: 42px; /* Zmenšená výška riadku (pôvodne 52px) */
-            padding: 0 12px;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-            
-            /* Plynulé predbiehanie */
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s, box-shadow 0.3s;
+            height: 24px; 
+            padding: 0 6px;
+            border-radius: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s;
         }
 
-        /* ======================================================== */
-        /* VYČISTENÉ SÝTE GRADIENTY - BEZ ČIERNEJ (ak nie je na vlajke) */
-        /* ======================================================== */
+        /* Gradienty */
         .bg-sk { background: linear-gradient(90deg, #051a59 0%, #102570 35%, #800f1b 100%); }
         .bg-cz { background: linear-gradient(90deg, #2c3545 0%, #444f63 35%, #8c121a 100%); }
         .bg-de { background: linear-gradient(90deg, #050505 0%, #800a0f 50%, #947109 100%); }
@@ -88,46 +91,43 @@
         .bg-ru { background: linear-gradient(90deg, #052263 0%, #0b3696 45%, #91111a 100%); }
         .bg-al { background: linear-gradient(90deg, #050505 0%, #1c0305 45%, #9c0c16 100%); }
 
-        /* Poradové čísla */
         .rank {
             font-family: 'Oswald', sans-serif;
-            font-size: 18px; /* Kompaktnejšie písmo */
+            font-size: 13px; 
             font-weight: 700;
-            width: 30px;
+            width: 18px;
             color: #ffffff; 
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
-            transition: color 0.4s;
+            text-shadow: 1px 1px 2px #000;
         }
 
-        /* Medaily pre top pozície */
-        .rank-1 { color: #ffd700 !important; text-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 1px 1px 2px #000; }
-        .rank-2 { color: #e0e0e0 !important; text-shadow: 0 0 10px rgba(224, 224, 224, 0.5), 1px 1px 2px #000; }
-        .rank-3 { color: #cd7f32 !important; text-shadow: 0 0 10px rgba(205, 127, 50, 0.5), 1px 1px 2px #000; }
+        .rank-1 { color: #ffd700 !important; text-shadow: 0 0 5px rgba(255, 215, 0, 0.6), 1px 1px 1px #000; }
+        .rank-2 { color: #e0e0e0 !important; text-shadow: 0 0 5px rgba(224, 224, 224, 0.5), 1px 1px 1px #000; }
+        .rank-3 { color: #cd7f32 !important; text-shadow: 0 0 5px rgba(205, 127, 50, 0.5), 1px 1px 1px #000; }
 
         .country-left {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
             flex-grow: 1;
         }
 
         .flag {
-            width: 32px; /* Mierne zmenšená vlajka */
-            height: 22px;
+            width: 20px; 
+            height: 14px;
             object-fit: cover;
-            border-radius: 3px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .country-name {
             color: #ffffff; 
-            font-size: 16px; /* Kompaktnejší názov */
+            font-size: 12px; 
             font-weight: 600;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            width: 120px;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+            width: 85px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
         }
 
         .country-right {
@@ -138,65 +138,94 @@
 
         .score {
             font-family: 'Oswald', sans-serif;
-            font-size: 19px; /* Menšie body, aby sedeli do riadku */
+            font-size: 13px; 
             font-weight: 700;
             color: #ffffff; 
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.9);
-            transition: color 0.4s;
+            text-shadow: 1px 1px 2px #000;
         }
 
-        /* Farebné priradenie bodov TOP 3 */
-        .score-1 { color: #ffd700 !important; text-shadow: 0 0 12px rgba(255, 215, 0, 0.7), 1px 1px 2px #000; }
-        .score-2 { color: #e0e0e0 !important; text-shadow: 0 0 10px rgba(224, 224, 224, 0.5), 1px 1px 2px #000; }
-        .score-3 { color: #cd7f32 !important; text-shadow: 0 0 10px rgba(205, 127, 50, 0.5), 1px 1px 2px #000; }
+        .score-1 { color: #ffd700 !important; }
+        .score-2 { color: #e0e0e0 !important; }
+        .score-3 { color: #cd7f32 !important; }
 
-        .gift { display: none; }
-
-        /* Animácia pridávania bodov */
         .flash-card {
-            animation: scorePop 0.5s ease-in-out;
+            animation: scorePop 0.4s ease-in-out;
             z-index: 10;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4), 0 2px 8px rgba(0,0,0,0.5);
         }
 
         @keyframes scorePop {
             0% { transform: scale(1); filter: brightness(1); }
-            30% { transform: scale(1.03); filter: brightness(1.5) saturate(1.2); }
+            30% { transform: scale(1.02); filter: brightness(1.3) saturate(1.2); }
             100% { transform: scale(1); filter: brightness(1); }
+        }
+
+        /* ======================================================== */
+        /* WINOV POČÍTADLO V STREDE - ZMENENÉ NA "WINS" */
+        /* ======================================================== */
+        .wins-counter {
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            transform: translateX(-50%);
+            font-family: 'Oswald', sans-serif;
+            font-size: 28px; 
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            background: transparent;
+            color: #39ff14; /* Jasná neónovo svetlozelená */
+            text-shadow: 0 0 12px rgba(57, 255, 20, 0.75), 2px 2px 2px #000, -2px -2px 2px #000, 2px -2px 2px #000, -2px 2px 2px #000;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            z-index: 999;
+            white-space: nowrap;
+        }
+
+        .wins-negative {
+            color: #ff3333 !important;
+            text-shadow: 0 0 12px rgba(255, 51, 51, 0.75), 2px 2px 2px #000, -2px -2px 2px #000, 2px -2px 2px #000, -2px 2px 2px #000 !important;
         }
 
         /* ========================= */
         /* OVLÁDACÍ PANEL */
         /* ========================= */
         .controls {
-            width: 280px;
-            padding: 20px;
-            border-radius: 16px;
+            width: 260px;
+            padding: 15px;
+            border-radius: 12px;
             background: rgba(15, 20, 30, 0.98);
             border: 1px solid rgba(255,255,255,0.1);
             height: fit-content;
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
 
-        .controls h2 { color: white; margin-bottom: 15px; font-size: 22px; font-family: 'Oswald', sans-serif; }
-        .controls label { color: #ccc; display: block; margin-bottom: 6px; font-size: 14px; font-weight: 600; }
-        .controls select, .controls input { width: 100%; height: 42px; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; margin-bottom: 14px; padding: 0 12px; font-size: 15px; background: rgba(255,255,255,0.05); color: white; }
+        .controls h2 { color: white; margin-bottom: 12px; font-size: 20px; font-family: 'Oswald', sans-serif; }
+        .controls label { color: #ccc; display: block; margin-bottom: 4px; font-size: 13px; font-weight: 600; }
+        .controls select, .controls input { width: 100%; height: 38px; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; margin-bottom: 12px; padding: 0 10px; font-size: 14px; background: rgba(255,255,255,0.05); color: white; }
         .controls option { color: black; }
-        .manual-btn { width: 100%; height: 46px; border: none; border-radius: 12px; color: white; font-size: 16px; font-weight: 800; cursor: pointer; transition: .2s; background: linear-gradient(135deg, #00c6ff, #0072ff); }
+        
+        .manual-btn { width: 100%; height: 42px; border: none; border-radius: 10px; color: white; font-size: 15px; font-weight: 800; cursor: pointer; transition: .2s; background: linear-gradient(135deg, #00c6ff, #0072ff); margin-bottom: 12px; }
         .manual-btn:hover { transform: scale(1.02); }
+
+        .win-controls-row { display: flex; gap: 8px; }
+        .win-btn { flex: 1; height: 38px; border: none; border-radius: 8px; color: white; font-size: 14px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .win-btn-plus { background: linear-gradient(135deg, #28a745, #218838); }
+        .win-btn-minus { background: linear-gradient(135deg, #dc3545, #c82333); }
+        .win-btn:hover { transform: scale(1.04); }
     </style>
 </head>
 <body>
 
+<div id="winsDisplay" class="wins-counter">0 / 10 WINS</div>
+
 <div class="wrapper">
 
-    <!-- Tabuľka poradia -->
     <div class="container">
-        <div class="title">PORADIE KRAJÍN</div>
-        <div id="leaderboard"></div>
+        <div id="leaderboard">
+            <div class="title">PORADIE KRAJÍN</div>
+            <div id="countriesHolder" class="countries-holder"></div>
+        </div>
     </div>
 
-    <!-- Ovládací panel -->
     <div class="controls">
         <h2>🎮 Ovládací panel</h2>
         
@@ -214,20 +243,26 @@
             <option value="Albánsko">🇦🇱 Albánsko</option>
         </select>
 
-        <select id="typeSelect" style="display: none;">
-            <option value="score" selected>Body</option>
-        </select>
-
-        <label>Koľko pridať</label>
+        <label>Koľko pridať bodov</label>
         <input type="number" id="amountInput" placeholder="Napr. 500" />
 
         <button class="manual-btn" onclick="manualAdd()">➕ Pridať body</button>
+
+        <label>🏆 Správa WINS (Koľko chcem)</label>
+        <input type="number" id="winAmountInput" placeholder="Napr. 1" value="1" />
+        <div class="win-controls-row">
+            <button class="win-btn win-btn-minus" onclick="manualChangeWins(-1)">➖ Odobrať</button>
+            <button class="win-btn win-btn-plus" onclick="manualChangeWins(1)">➕ Pridať</button>
+        </div>
     </div>
 
 </div>
 
 <script>
     const socket = new WebSocket("ws://localhost:3000");
+
+    let currentWins = 0;
+    const maxWins = 10;
 
     let countries = [
         { id: "sk", name:"Slovensko", code:"sk", score:0, flash:false },
@@ -243,11 +278,11 @@
     ];
 
     function initLeaderboard() {
-        const leaderboard = document.getElementById("leaderboard");
-        leaderboard.innerHTML = "";
+        const holder = document.getElementById("countriesHolder");
+        holder.innerHTML = "";
         
         countries.forEach((country) => {
-            leaderboard.innerHTML += `
+            holder.innerHTML += `
             <div id="card-${country.id}" class="country-card bg-${country.code}">
                 <div class="country-left">
                     <div id="rank-${country.id}" class="rank">#0</div>
@@ -261,11 +296,35 @@
             `;
         });
         
-        // Nastavenie fixnej výšky kontajnera podľa počtu štátov, aby držal tieň okolo celej tabuľky
-        // (42px výška riadku + 4px medzera) * počet krajín + padding kontajnera
-        leaderboard.style.height = `${(countries.length * (42 + 4)) + 4}px`;
-        
+        holder.style.height = `${(countries.length * (24 + 2)) - 2}px`;
+        updateWinsDisplay();
         renderLeaderboard();
+    }
+
+    // Aktualizácia zobrazenia s textom WINS
+    function updateWinsDisplay() {
+        const winsDisplay = document.getElementById("winsDisplay");
+        winsDisplay.innerText = `${currentWins} / ${maxWins} WINS`;
+
+        if (currentWins < 0) {
+            winsDisplay.classList.add("wins-negative");
+        } else {
+            winsDisplay.classList.remove("wins-negative");
+        }
+    }
+
+    // Funkcia, ktorá zoberie hodnotu z inputu a buď ju pripočíta (direction = 1) alebo odpočíta (direction = -1)
+    function manualChangeWins(direction) {
+        const inputVal = parseInt(document.getElementById("winAmountInput").value);
+        if (isNaN(inputVal) || inputVal <= 0) return;
+
+        const totalChange = inputVal * direction;
+        currentWins += totalChange;
+        updateWinsDisplay();
+
+        if (socket.readyState === WebSocket.OPEN) {
+            socket.send(JSON.stringify({ type: "winsUpdate", wins: currentWins }));
+        }
     }
 
     function renderLeaderboard(){
@@ -278,12 +337,11 @@
 
             if (!cardEl) return;
 
-            // Výpočet pozície upravený pre menšiu výšku (42px výška karty + 4px gap)
-            cardEl.style.transform = `translateY(${index * (42 + 4)}px)`;
+            cardEl.style.transform = `translateY(${index * (24 + 2)}px)`;
             cardEl.style.position = "absolute";
-            cardEl.style.top = "4px";
-            cardEl.style.left = "4px";
-            cardEl.style.width = "calc(100% - 8px)";
+            cardEl.style.top = "0px";
+            cardEl.style.left = "0px";
+            cardEl.style.width = "100%";
 
             rankEl.innerText = `#${index + 1}`;
             scoreEl.innerText = country.score.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -326,7 +384,7 @@
         setTimeout(() => {
             country.flash = false;
             renderLeaderboard();
-        }, 500);
+        }, 400);
     }
 
     function manualAdd(){
@@ -352,7 +410,12 @@
     socket.onopen = () => { console.log("Connected to live.js"); };
     socket.onmessage = (event) => {
         const data = JSON.parse(event.data);
-        addPoints(data);
+        if (data.type === "winsUpdate") {
+            currentWins = data.wins;
+            updateWinsDisplay();
+        } else {
+            addPoints(data);
+        }
     };
     socket.onerror = (err) => { console.log(err); };
 
