@@ -16,24 +16,25 @@
             font-family: 'Poppins', sans-serif;
             background: transparent; 
             min-height: 100vh;
-            padding: 10px;
+            padding: 15px;
             overflow: hidden;
             color: white;
-            position: relative;
         }
 
+        /* Hlavný obal, ktorý posúvame nižšie pod zafixované WINS */
         .wrapper {
             display: flex;
-            gap: 20px;
-            scale: 0.85; 
+            gap: 25px;
+            margin-top: 80px; /* Bezpečný odstup, aby WINS neprekrývali panel ani tabuľku */
+            scale: 0.9; 
             transform-origin: top left;
         }
 
         /* ========================= */
-        /* LEADERBOARD (TIKTOK ULTRA COMPACT) */
+        /* LEADERBOARD (TIKTOK MODERN) */
         /* ========================= */
         .container {
-            width: 230px; 
+            width: 255px; /* Mierne zväčšená šírka */
         }
 
         #leaderboard {
@@ -42,22 +43,22 @@
             position: relative;
             background: rgba(0, 0, 0, 0.55); 
             backdrop-filter: blur(4px); 
-            padding: 6px;
-            border-radius: 6px;
-            box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.7);
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px 3px rgba(0, 0, 0, 0.7);
         }
 
         .title {
             font-family: 'Oswald', sans-serif;
-            font-size: 16px; 
+            font-size: 18px; /* O niečo väčší nadpis */
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
             color: #ffffff;
             text-align: center;
-            margin-bottom: 6px; 
+            margin-bottom: 8px; 
             border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            padding-bottom: 4px;
+            padding-bottom: 6px;
             text-shadow: 1px 1px 2px #000;
         }
 
@@ -66,16 +67,17 @@
             width: 100%;
         }
 
+        /* RIADOK ŠTÁTU (Zväčšený na 28px) */
         .country-card {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            height: 24px; 
-            padding: 0 6px;
-            border-radius: 3px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+            height: 28px; 
+            padding: 0 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
             transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s;
         }
 
@@ -93,9 +95,9 @@
 
         .rank {
             font-family: 'Oswald', sans-serif;
-            font-size: 13px; 
+            font-size: 14px; 
             font-weight: 700;
-            width: 18px;
+            width: 20px;
             color: #ffffff; 
             text-shadow: 1px 1px 2px #000;
         }
@@ -107,26 +109,26 @@
         .country-left {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             flex-grow: 1;
         }
 
         .flag {
-            width: 20px; 
-            height: 14px;
+            width: 24px; 
+            height: 16px;
             object-fit: cover;
-            border-radius: 1px;
+            border-radius: 2px;
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .country-name {
             color: #ffffff; 
-            font-size: 12px; 
+            font-size: 13px; 
             font-weight: 600;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            width: 85px;
+            width: 95px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
         }
 
@@ -138,7 +140,7 @@
 
         .score {
             font-family: 'Oswald', sans-serif;
-            font-size: 13px; 
+            font-size: 14px; 
             font-weight: 700;
             color: #ffffff; 
             text-shadow: 1px 1px 2px #000;
@@ -155,28 +157,28 @@
 
         @keyframes scorePop {
             0% { transform: scale(1); filter: brightness(1); }
-            30% { transform: scale(1.02); filter: brightness(1.3) saturate(1.2); }
+            30% { transform: scale(1.03); filter: brightness(1.3) saturate(1.2); }
             100% { transform: scale(1); filter: brightness(1); }
         }
 
         /* ======================================================== */
-        /* WINOV POČÍTADLO V STREDE - ZMENENÉ NA "WINS" */
+        /* WINOV POČÍTADLO V STREDE - FIXNÉ, ABY NEPREKRÝVALO PANEL */
         /* ======================================================== */
         .wins-counter {
-            position: absolute;
+            position: fixed; /* Zmenené na fixed, drží sa na vrchu okna nezávisle od wrapperu */
             left: 50%;
             top: 20px;
             transform: translateX(-50%);
             font-family: 'Oswald', sans-serif;
-            font-size: 28px; 
+            font-size: 32px; /* Mierne zväčšené pre lepšiu viditeľnosť */
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             background: transparent;
-            color: #39ff14; /* Jasná neónovo svetlozelená */
+            color: #39ff14; 
             text-shadow: 0 0 12px rgba(57, 255, 20, 0.75), 2px 2px 2px #000, -2px -2px 2px #000, 2px -2px 2px #000, -2px 2px 2px #000;
             transition: color 0.3s ease, text-shadow 0.3s ease;
-            z-index: 999;
+            z-index: 9999; /* Vždy úplne navrchu */
             white-space: nowrap;
         }
 
@@ -189,8 +191,8 @@
         /* OVLÁDACÍ PANEL */
         /* ========================= */
         .controls {
-            width: 260px;
-            padding: 15px;
+            width: 270px;
+            padding: 18px;
             border-radius: 12px;
             background: rgba(15, 20, 30, 0.98);
             border: 1px solid rgba(255,255,255,0.1);
@@ -215,10 +217,12 @@
 </head>
 <body>
 
+<!-- Počítadlo WINS fixné na vrchu obrazovky -->
 <div id="winsDisplay" class="wins-counter">0 / 10 WINS</div>
 
 <div class="wrapper">
 
+    <!-- Tabuľka poradia spojená do jedného bloku s nadpisom -->
     <div class="container">
         <div id="leaderboard">
             <div class="title">PORADIE KRAJÍN</div>
@@ -226,6 +230,7 @@
         </div>
     </div>
 
+    <!-- Ovládací panel -->
     <div class="controls">
         <h2>🎮 Ovládací panel</h2>
         
@@ -296,12 +301,12 @@
             `;
         });
         
-        holder.style.height = `${(countries.length * (24 + 2)) - 2}px`;
+        // Prepočítané pre 28px výšku a 2px gap
+        holder.style.height = `${(countries.length * (28 + 2)) - 2}px`;
         updateWinsDisplay();
         renderLeaderboard();
     }
 
-    // Aktualizácia zobrazenia s textom WINS
     function updateWinsDisplay() {
         const winsDisplay = document.getElementById("winsDisplay");
         winsDisplay.innerText = `${currentWins} / ${maxWins} WINS`;
@@ -313,7 +318,6 @@
         }
     }
 
-    // Funkcia, ktorá zoberie hodnotu z inputu a buď ju pripočíta (direction = 1) alebo odpočíta (direction = -1)
     function manualChangeWins(direction) {
         const inputVal = parseInt(document.getElementById("winAmountInput").value);
         if (isNaN(inputVal) || inputVal <= 0) return;
@@ -337,7 +341,8 @@
 
             if (!cardEl) return;
 
-            cardEl.style.transform = `translateY(${index * (24 + 2)}px)`;
+            // Prepočítané pre 28px výšku a 2px gap
+            cardEl.style.transform = `translateY(${index * (28 + 2)}px)`;
             cardEl.style.position = "absolute";
             cardEl.style.top = "0px";
             cardEl.style.left = "0px";
